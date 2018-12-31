@@ -1,7 +1,0 @@
-version: "3.6"
-
-services:
-  api:
-    image: api:latest
-    volumes:
-      - ./:/go/src/github.com/olamai/api
