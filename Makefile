@@ -1,4 +1,3 @@
-API_OUT := "build/"
 API_REST_OUT := "build-rest/" # TODO - NO API ENDPOINT
 PKG := "github.com/olamai/api"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
@@ -11,14 +10,14 @@ compile: # compile proto files
 		@protoc \
 		-I ./ \
 		-I${GOPATH}/src \
-		--go_out=plugins=grpc:build \
+		--go_out=plugins=grpc:./ \
 		./*.proto
 
 dep: ## Get the dependencies
 	@go get -v -d ./...
 
 clean: ## Remove previous builds
-	@rm $(API_OUT) $(API_REST_OUT)
+	@rm ./*.pb.go
 
 help: ## Display this help screen
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
