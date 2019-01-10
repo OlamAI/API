@@ -68,15 +68,16 @@ func init() {
 func init() { proto.RegisterFile("gateway/gateway.proto", fileDescriptor_285396c8df15061f) }
 
 var fileDescriptor_285396c8df15061f = []byte{
-	// 120 bytes of a gzipped FileDescriptorProto
+	// 134 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4d, 0x4f, 0x2c, 0x49,
 	0x2d, 0x4f, 0xac, 0xd4, 0x87, 0xd2, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xcc, 0x89, 0x05,
 	0x99, 0x4a, 0x9a, 0x5c, 0xdc, 0x01, 0x99, 0x79, 0xe9, 0xbe, 0xa9, 0xc5, 0xc5, 0x89, 0xe9, 0xa9,
 	0x42, 0x52, 0x5c, 0x1c, 0xe9, 0x45, 0xa9, 0xa9, 0x25, 0x99, 0x79, 0xe9, 0x12, 0x8c, 0x0a, 0x8c,
-	0x1a, 0x9c, 0x41, 0x70, 0xbe, 0x91, 0x05, 0x17, 0x0b, 0x48, 0xa9, 0x90, 0x01, 0x17, 0x47, 0x70,
+	0x1a, 0x9c, 0x41, 0x70, 0xbe, 0x51, 0x3e, 0x17, 0x0b, 0x48, 0xa9, 0x90, 0x01, 0x17, 0x47, 0x70,
 	0x62, 0xa5, 0x47, 0x6a, 0x4e, 0x4e, 0xbe, 0x90, 0x80, 0x5e, 0x62, 0x41, 0xa6, 0x1e, 0x92, 0x09,
-	0x52, 0x18, 0x22, 0x4a, 0x0c, 0x49, 0x6c, 0x60, 0x0b, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0x5e, 0x76, 0xfd, 0x80, 0x89, 0x00, 0x00, 0x00,
+	0x52, 0x18, 0x22, 0x4a, 0x0c, 0x42, 0xa6, 0x5c, 0xdc, 0xc1, 0x25, 0x45, 0xa9, 0x89, 0xb9, 0x24,
+	0x68, 0x32, 0x60, 0x4c, 0x62, 0x03, 0xbb, 0xd3, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x25, 0x1d,
+	0xde, 0x89, 0xc0, 0x00, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -92,6 +93,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type PingClient interface {
 	SayHello(ctx context.Context, in *PingMessage, opts ...grpc.CallOption) (*PingMessage, error)
+	StreamHello(ctx context.Context, in *PingMessage, opts ...grpc.CallOption) (Ping_StreamHelloClient, error)
 }
 
 type pingClient struct {
@@ -111,9 +113,42 @@ func (c *pingClient) SayHello(ctx context.Context, in *PingMessage, opts ...grpc
 	return out, nil
 }
 
+func (c *pingClient) StreamHello(ctx context.Context, in *PingMessage, opts ...grpc.CallOption) (Ping_StreamHelloClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Ping_serviceDesc.Streams[0], "/api.Ping/StreamHello", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &pingStreamHelloClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Ping_StreamHelloClient interface {
+	Recv() (*PingMessage, error)
+	grpc.ClientStream
+}
+
+type pingStreamHelloClient struct {
+	grpc.ClientStream
+}
+
+func (x *pingStreamHelloClient) Recv() (*PingMessage, error) {
+	m := new(PingMessage)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // PingServer is the server API for Ping service.
 type PingServer interface {
 	SayHello(context.Context, *PingMessage) (*PingMessage, error)
+	StreamHello(*PingMessage, Ping_StreamHelloServer) error
 }
 
 func RegisterPingServer(s *grpc.Server, srv PingServer) {
@@ -138,6 +173,27 @@ func _Ping_SayHello_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Ping_StreamHello_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PingMessage)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(PingServer).StreamHello(m, &pingStreamHelloServer{stream})
+}
+
+type Ping_StreamHelloServer interface {
+	Send(*PingMessage) error
+	grpc.ServerStream
+}
+
+type pingStreamHelloServer struct {
+	grpc.ServerStream
+}
+
+func (x *pingStreamHelloServer) Send(m *PingMessage) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _Ping_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "api.Ping",
 	HandlerType: (*PingServer)(nil),
@@ -147,6 +203,12 @@ var _Ping_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Ping_SayHello_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "StreamHello",
+			Handler:       _Ping_StreamHello_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "gateway/gateway.proto",
 }
