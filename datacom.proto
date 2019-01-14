@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb;
+
+message ExecuteMessage {
+  string execution = 1;
+}
+
+message QueryMessage {
+  string query = 1;
+}
+
+message QueryResponseMessage {
+  string response = 1;
+}
+
+message Empty {
+
+}
+
+service Datacom {
+  // Execute something on data
+  rpc Execute(ExecuteMessage) returns (Empty) {}
+  // Query data
+  rpc Query(QueryMessage) returns (QueryResponseMessage) {}
+}

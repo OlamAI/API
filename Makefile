@@ -11,7 +11,7 @@ compile: # compile proto files
 		-I ./ \
 		-I${GOPATH}/src \
 		--go_out=plugins=grpc:./ \
-		./gateway/*.proto
+		./*.proto
 
 dep: ## Get the dependencies
 	@go get -v -d ./...
