@@ -13,7 +13,7 @@ compile: # compile proto files
 		--go_out=plugins=grpc:./ \
 		./*.proto
 compilePython:
-		@python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./modelExecuter.proto
+		@python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./modelRunner.proto
 
 
 dep: ## Get the dependencies
