@@ -1,8 +1,6 @@
 syntax = "proto3";
 package pb;
 
-import "shared.proto";
-
 message ExecuteMessage {
   string Execution = 1;
 }
@@ -14,6 +12,8 @@ message QueryMessage {
 message QueryResponseMessage {
   string Response = 1;
 }
+
+message Empty {}
 
 service Datacom {
   // Execute something on data

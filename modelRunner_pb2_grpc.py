@@ -2,7 +2,6 @@
 import grpc
 
 import modelRunner_pb2 as modelRunner__pb2
-import shared_pb2 as shared__pb2
 
 
 class ModelRunnerStub(object):
@@ -16,9 +15,9 @@ class ModelRunnerStub(object):
       channel: A grpc.Channel.
     """
     self.RunModel = channel.unary_unary(
-        '/pb.ModelRunner/RunModel',
+        '/pbModelRunner.ModelRunner/RunModel',
         request_serializer=modelRunner__pb2.RunModelMessage.SerializeToString,
-        response_deserializer=shared__pb2.Empty.FromString,
+        response_deserializer=modelRunner__pb2.Empty.FromString,
         )
 
 
@@ -39,9 +38,9 @@ def add_ModelRunnerServicer_to_server(servicer, server):
       'RunModel': grpc.unary_unary_rpc_method_handler(
           servicer.RunModel,
           request_deserializer=modelRunner__pb2.RunModelMessage.FromString,
-          response_serializer=shared__pb2.Empty.SerializeToString,
+          response_serializer=modelRunner__pb2.Empty.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'pb.ModelRunner', rpc_method_handlers)
+      'pbModelRunner.ModelRunner', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

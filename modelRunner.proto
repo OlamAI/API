@@ -1,7 +1,5 @@
 syntax = "proto3";
-package pb;
-
-import "shared.proto";
+package pbModelRunner;
 
 message LoadModelMessage {
   string ModelName = 1;
@@ -12,6 +10,8 @@ message RunModelMessage {
   // TODO - Change this to correct object for observations
   string Observations = 2;
 }
+
+message Empty{}
 
 service ModelRunner {
   // Execute something on data
