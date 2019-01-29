@@ -1,5 +1,5 @@
 syntax = "proto3";
-package pbModelRunner;
+package pb;
 
 message LoadModelMessage {
   string ModelName = 1;
@@ -11,9 +11,11 @@ message RunModelMessage {
   string Observations = 2;
 }
 
-message Empty{}
+message ModelResultMessage{
+  string Action = 1;
+}
 
 service ModelRunner {
   // Execute something on data
-  rpc RunModel(RunModelMessage) returns (Empty) {}
+  rpc RunModel(RunModelMessage) returns (ModelResultMessage) {}
 }
