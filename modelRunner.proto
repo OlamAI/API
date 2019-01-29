@@ -8,7 +8,7 @@ message LoadModelMessage {
 message RunModelMessage {
   string ModelName = 1;
   // TODO - Change this to correct object for observations
-  string Observations = 2;
+  string Input = 2;
 }
 
 message ModelResultMessage{
