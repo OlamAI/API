@@ -12,6 +12,9 @@ compile: # compile proto files
 		-I${GOPATH}/src \
 		--go_out=plugins=grpc:./ \
 		./*.proto
+compilePython:
+		@python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./modelExecuter.proto
+
 
 dep: ## Get the dependencies
 	@go get -v -d ./...
