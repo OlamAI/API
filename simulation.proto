@@ -2,12 +2,12 @@ syntax = "proto3";
 package pb;
 
 message SpawnAgentMessage {
-  int32 x = 1;
-  int32 y = 2;
+  int32 X = 1;
+  int32 Y = 2;
 }
 
 message SpawnAgentResultMessage {
-  string status = 1;
+  string Status = 1;
 }
 
 service Simulation {
