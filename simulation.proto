@@ -1,0 +1,16 @@
+syntax = "proto3";
+package pb;
+
+message SpawnAgentMessage {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message SpawnAgentResultMessage {
+  string status = 1;
+}
+
+service Simulation {
+  // Execute something on data
+  rpc SpawnAgent(SpawnAgentMessage) returns (SpawnAgentResultMessage) {}
+}
