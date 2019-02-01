@@ -15,9 +15,10 @@ message ObserveRequestMessage {}
 
 message EntityUpdateMessage {
   string Action = 1;
-  string Class = 2;
-  int32 X = 3;
-  int32 Y = 4;
+  int32 Id = 2;
+  string Class = 3;
+  int32 X = 4;
+  int32 Y = 5;
 }
 
 service Simulation {
