@@ -13,15 +13,16 @@ message SpawnAgentResultMessage {
 // TODO - implement this function
 message ObserveRequestMessage {}
 
-message EntityMessage {
-  string Class = 1;
-  int32 X = 2;
-  int32 Y = 3;
+message EntityUpdateMessage {
+  string Action = 1;
+  string Class = 2;
+  int32 X = 3;
+  int32 Y = 4;
 }
 
 service Simulation {
   // Execute something on data
   rpc SpawnAgent(SpawnAgentMessage) returns (SpawnAgentResultMessage) {}
   // Observe simulation
-  rpc Observe(ObserveRequestMessage) returns (stream EntityMessage) {}
+  rpc Observe(ObserveRequestMessage) returns (stream EntityUpdateMessage) {}
 }
