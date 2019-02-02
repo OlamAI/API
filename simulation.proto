@@ -35,8 +35,10 @@ message AgentActionRequest {
     LEFT = 2;
     RIGHT = 3;
   }
+  // Id of the agent
+  int32 Id = 1;
   // The action you would like to perform
-  ActionType Action = 1;
+  ActionType Action = 2;
 }
 message AgentActionResult {
   // Whether or not the action was succesful
