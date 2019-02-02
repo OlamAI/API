@@ -22,126 +22,38 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type SpawnAgentMessage struct {
-	X                    int32    `protobuf:"varint,1,opt,name=X,proto3" json:"X,omitempty"`
-	Y                    int32    `protobuf:"varint,2,opt,name=Y,proto3" json:"Y,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type AgentActionRequest_ActionType int32
+
+const (
+	AgentActionRequest_UP    AgentActionRequest_ActionType = 0
+	AgentActionRequest_DOWN  AgentActionRequest_ActionType = 1
+	AgentActionRequest_LEFT  AgentActionRequest_ActionType = 2
+	AgentActionRequest_RIGHT AgentActionRequest_ActionType = 3
+)
+
+var AgentActionRequest_ActionType_name = map[int32]string{
+	0: "UP",
+	1: "DOWN",
+	2: "LEFT",
+	3: "RIGHT",
 }
 
-func (m *SpawnAgentMessage) Reset()         { *m = SpawnAgentMessage{} }
-func (m *SpawnAgentMessage) String() string { return proto.CompactTextString(m) }
-func (*SpawnAgentMessage) ProtoMessage()    {}
-func (*SpawnAgentMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_961a558581160483, []int{0}
+var AgentActionRequest_ActionType_value = map[string]int32{
+	"UP":    0,
+	"DOWN":  1,
+	"LEFT":  2,
+	"RIGHT": 3,
 }
 
-func (m *SpawnAgentMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SpawnAgentMessage.Unmarshal(m, b)
-}
-func (m *SpawnAgentMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SpawnAgentMessage.Marshal(b, m, deterministic)
-}
-func (m *SpawnAgentMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SpawnAgentMessage.Merge(m, src)
-}
-func (m *SpawnAgentMessage) XXX_Size() int {
-	return xxx_messageInfo_SpawnAgentMessage.Size(m)
-}
-func (m *SpawnAgentMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_SpawnAgentMessage.DiscardUnknown(m)
+func (x AgentActionRequest_ActionType) String() string {
+	return proto.EnumName(AgentActionRequest_ActionType_name, int32(x))
 }
 
-var xxx_messageInfo_SpawnAgentMessage proto.InternalMessageInfo
-
-func (m *SpawnAgentMessage) GetX() int32 {
-	if m != nil {
-		return m.X
-	}
-	return 0
+func (AgentActionRequest_ActionType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{5, 0}
 }
 
-func (m *SpawnAgentMessage) GetY() int32 {
-	if m != nil {
-		return m.Y
-	}
-	return 0
-}
-
-type SpawnAgentResultMessage struct {
-	Status               string   `protobuf:"bytes,1,opt,name=Status,proto3" json:"Status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SpawnAgentResultMessage) Reset()         { *m = SpawnAgentResultMessage{} }
-func (m *SpawnAgentResultMessage) String() string { return proto.CompactTextString(m) }
-func (*SpawnAgentResultMessage) ProtoMessage()    {}
-func (*SpawnAgentResultMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_961a558581160483, []int{1}
-}
-
-func (m *SpawnAgentResultMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SpawnAgentResultMessage.Unmarshal(m, b)
-}
-func (m *SpawnAgentResultMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SpawnAgentResultMessage.Marshal(b, m, deterministic)
-}
-func (m *SpawnAgentResultMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SpawnAgentResultMessage.Merge(m, src)
-}
-func (m *SpawnAgentResultMessage) XXX_Size() int {
-	return xxx_messageInfo_SpawnAgentResultMessage.Size(m)
-}
-func (m *SpawnAgentResultMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_SpawnAgentResultMessage.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SpawnAgentResultMessage proto.InternalMessageInfo
-
-func (m *SpawnAgentResultMessage) GetStatus() string {
-	if m != nil {
-		return m.Status
-	}
-	return ""
-}
-
-// TODO - implement this function
-type ObserveRequestMessage struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ObserveRequestMessage) Reset()         { *m = ObserveRequestMessage{} }
-func (m *ObserveRequestMessage) String() string { return proto.CompactTextString(m) }
-func (*ObserveRequestMessage) ProtoMessage()    {}
-func (*ObserveRequestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_961a558581160483, []int{2}
-}
-
-func (m *ObserveRequestMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ObserveRequestMessage.Unmarshal(m, b)
-}
-func (m *ObserveRequestMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ObserveRequestMessage.Marshal(b, m, deterministic)
-}
-func (m *ObserveRequestMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ObserveRequestMessage.Merge(m, src)
-}
-func (m *ObserveRequestMessage) XXX_Size() int {
-	return xxx_messageInfo_ObserveRequestMessage.Size(m)
-}
-func (m *ObserveRequestMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_ObserveRequestMessage.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ObserveRequestMessage proto.InternalMessageInfo
-
-type EntityUpdateMessage struct {
-	Action               string   `protobuf:"bytes,1,opt,name=Action,proto3" json:"Action,omitempty"`
+type Entity struct {
 	Id                   int32    `protobuf:"varint,2,opt,name=Id,proto3" json:"Id,omitempty"`
 	Class                string   `protobuf:"bytes,3,opt,name=Class,proto3" json:"Class,omitempty"`
 	X                    int32    `protobuf:"varint,4,opt,name=X,proto3" json:"X,omitempty"`
@@ -151,93 +63,439 @@ type EntityUpdateMessage struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *EntityUpdateMessage) Reset()         { *m = EntityUpdateMessage{} }
-func (m *EntityUpdateMessage) String() string { return proto.CompactTextString(m) }
-func (*EntityUpdateMessage) ProtoMessage()    {}
-func (*EntityUpdateMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_961a558581160483, []int{3}
+func (m *Entity) Reset()         { *m = Entity{} }
+func (m *Entity) String() string { return proto.CompactTextString(m) }
+func (*Entity) ProtoMessage()    {}
+func (*Entity) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{0}
 }
 
-func (m *EntityUpdateMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EntityUpdateMessage.Unmarshal(m, b)
+func (m *Entity) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Entity.Unmarshal(m, b)
 }
-func (m *EntityUpdateMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EntityUpdateMessage.Marshal(b, m, deterministic)
+func (m *Entity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Entity.Marshal(b, m, deterministic)
 }
-func (m *EntityUpdateMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EntityUpdateMessage.Merge(m, src)
+func (m *Entity) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Entity.Merge(m, src)
 }
-func (m *EntityUpdateMessage) XXX_Size() int {
-	return xxx_messageInfo_EntityUpdateMessage.Size(m)
+func (m *Entity) XXX_Size() int {
+	return xxx_messageInfo_Entity.Size(m)
 }
-func (m *EntityUpdateMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_EntityUpdateMessage.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EntityUpdateMessage proto.InternalMessageInfo
-
-func (m *EntityUpdateMessage) GetAction() string {
-	if m != nil {
-		return m.Action
-	}
-	return ""
+func (m *Entity) XXX_DiscardUnknown() {
+	xxx_messageInfo_Entity.DiscardUnknown(m)
 }
 
-func (m *EntityUpdateMessage) GetId() int32 {
+var xxx_messageInfo_Entity proto.InternalMessageInfo
+
+func (m *Entity) GetId() int32 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-func (m *EntityUpdateMessage) GetClass() string {
+func (m *Entity) GetClass() string {
 	if m != nil {
 		return m.Class
 	}
 	return ""
 }
 
-func (m *EntityUpdateMessage) GetX() int32 {
+func (m *Entity) GetX() int32 {
 	if m != nil {
 		return m.X
 	}
 	return 0
 }
 
-func (m *EntityUpdateMessage) GetY() int32 {
+func (m *Entity) GetY() int32 {
 	if m != nil {
 		return m.Y
 	}
 	return 0
 }
 
+type SpawnAgentRequest struct {
+	X                    int32    `protobuf:"varint,1,opt,name=X,proto3" json:"X,omitempty"`
+	Y                    int32    `protobuf:"varint,2,opt,name=Y,proto3" json:"Y,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SpawnAgentRequest) Reset()         { *m = SpawnAgentRequest{} }
+func (m *SpawnAgentRequest) String() string { return proto.CompactTextString(m) }
+func (*SpawnAgentRequest) ProtoMessage()    {}
+func (*SpawnAgentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{1}
+}
+
+func (m *SpawnAgentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SpawnAgentRequest.Unmarshal(m, b)
+}
+func (m *SpawnAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SpawnAgentRequest.Marshal(b, m, deterministic)
+}
+func (m *SpawnAgentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SpawnAgentRequest.Merge(m, src)
+}
+func (m *SpawnAgentRequest) XXX_Size() int {
+	return xxx_messageInfo_SpawnAgentRequest.Size(m)
+}
+func (m *SpawnAgentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SpawnAgentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SpawnAgentRequest proto.InternalMessageInfo
+
+func (m *SpawnAgentRequest) GetX() int32 {
+	if m != nil {
+		return m.X
+	}
+	return 0
+}
+
+func (m *SpawnAgentRequest) GetY() int32 {
+	if m != nil {
+		return m.Y
+	}
+	return 0
+}
+
+type SpawnAgentResult struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SpawnAgentResult) Reset()         { *m = SpawnAgentResult{} }
+func (m *SpawnAgentResult) String() string { return proto.CompactTextString(m) }
+func (*SpawnAgentResult) ProtoMessage()    {}
+func (*SpawnAgentResult) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{2}
+}
+
+func (m *SpawnAgentResult) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SpawnAgentResult.Unmarshal(m, b)
+}
+func (m *SpawnAgentResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SpawnAgentResult.Marshal(b, m, deterministic)
+}
+func (m *SpawnAgentResult) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SpawnAgentResult.Merge(m, src)
+}
+func (m *SpawnAgentResult) XXX_Size() int {
+	return xxx_messageInfo_SpawnAgentResult.Size(m)
+}
+func (m *SpawnAgentResult) XXX_DiscardUnknown() {
+	xxx_messageInfo_SpawnAgentResult.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SpawnAgentResult proto.InternalMessageInfo
+
+func (m *SpawnAgentResult) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type AgentObservationRequest struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AgentObservationRequest) Reset()         { *m = AgentObservationRequest{} }
+func (m *AgentObservationRequest) String() string { return proto.CompactTextString(m) }
+func (*AgentObservationRequest) ProtoMessage()    {}
+func (*AgentObservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{3}
+}
+
+func (m *AgentObservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AgentObservationRequest.Unmarshal(m, b)
+}
+func (m *AgentObservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AgentObservationRequest.Marshal(b, m, deterministic)
+}
+func (m *AgentObservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AgentObservationRequest.Merge(m, src)
+}
+func (m *AgentObservationRequest) XXX_Size() int {
+	return xxx_messageInfo_AgentObservationRequest.Size(m)
+}
+func (m *AgentObservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AgentObservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AgentObservationRequest proto.InternalMessageInfo
+
+func (m *AgentObservationRequest) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type AgentObservationResult struct {
+	Entities             []*Entity `protobuf:"bytes,1,rep,name=Entities,proto3" json:"Entities,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *AgentObservationResult) Reset()         { *m = AgentObservationResult{} }
+func (m *AgentObservationResult) String() string { return proto.CompactTextString(m) }
+func (*AgentObservationResult) ProtoMessage()    {}
+func (*AgentObservationResult) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{4}
+}
+
+func (m *AgentObservationResult) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AgentObservationResult.Unmarshal(m, b)
+}
+func (m *AgentObservationResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AgentObservationResult.Marshal(b, m, deterministic)
+}
+func (m *AgentObservationResult) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AgentObservationResult.Merge(m, src)
+}
+func (m *AgentObservationResult) XXX_Size() int {
+	return xxx_messageInfo_AgentObservationResult.Size(m)
+}
+func (m *AgentObservationResult) XXX_DiscardUnknown() {
+	xxx_messageInfo_AgentObservationResult.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AgentObservationResult proto.InternalMessageInfo
+
+func (m *AgentObservationResult) GetEntities() []*Entity {
+	if m != nil {
+		return m.Entities
+	}
+	return nil
+}
+
+type AgentActionRequest struct {
+	// The action you would like to perform
+	Action               AgentActionRequest_ActionType `protobuf:"varint,1,opt,name=Action,proto3,enum=pb.AgentActionRequest_ActionType" json:"Action,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                      `json:"-"`
+	XXX_unrecognized     []byte                        `json:"-"`
+	XXX_sizecache        int32                         `json:"-"`
+}
+
+func (m *AgentActionRequest) Reset()         { *m = AgentActionRequest{} }
+func (m *AgentActionRequest) String() string { return proto.CompactTextString(m) }
+func (*AgentActionRequest) ProtoMessage()    {}
+func (*AgentActionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{5}
+}
+
+func (m *AgentActionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AgentActionRequest.Unmarshal(m, b)
+}
+func (m *AgentActionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AgentActionRequest.Marshal(b, m, deterministic)
+}
+func (m *AgentActionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AgentActionRequest.Merge(m, src)
+}
+func (m *AgentActionRequest) XXX_Size() int {
+	return xxx_messageInfo_AgentActionRequest.Size(m)
+}
+func (m *AgentActionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AgentActionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AgentActionRequest proto.InternalMessageInfo
+
+func (m *AgentActionRequest) GetAction() AgentActionRequest_ActionType {
+	if m != nil {
+		return m.Action
+	}
+	return AgentActionRequest_UP
+}
+
+type AgentActionResult struct {
+	// Whether or not the action was succesful
+	// Could be unsuccesful if attempting to interract with an entity
+	//  that is not in range, already consumed, etc.
+	Successful bool `protobuf:"varint,1,opt,name=Successful,proto3" json:"Successful,omitempty"`
+	// Whether this agent is done or not. If they agent has died this
+	//  will be true.
+	Done                 bool     `protobuf:"varint,2,opt,name=Done,proto3" json:"Done,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AgentActionResult) Reset()         { *m = AgentActionResult{} }
+func (m *AgentActionResult) String() string { return proto.CompactTextString(m) }
+func (*AgentActionResult) ProtoMessage()    {}
+func (*AgentActionResult) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{6}
+}
+
+func (m *AgentActionResult) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AgentActionResult.Unmarshal(m, b)
+}
+func (m *AgentActionResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AgentActionResult.Marshal(b, m, deterministic)
+}
+func (m *AgentActionResult) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AgentActionResult.Merge(m, src)
+}
+func (m *AgentActionResult) XXX_Size() int {
+	return xxx_messageInfo_AgentActionResult.Size(m)
+}
+func (m *AgentActionResult) XXX_DiscardUnknown() {
+	xxx_messageInfo_AgentActionResult.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AgentActionResult proto.InternalMessageInfo
+
+func (m *AgentActionResult) GetSuccessful() bool {
+	if m != nil {
+		return m.Successful
+	}
+	return false
+}
+
+func (m *AgentActionResult) GetDone() bool {
+	if m != nil {
+		return m.Done
+	}
+	return false
+}
+
+// TODO - implement this
+type SpectateRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SpectateRequest) Reset()         { *m = SpectateRequest{} }
+func (m *SpectateRequest) String() string { return proto.CompactTextString(m) }
+func (*SpectateRequest) ProtoMessage()    {}
+func (*SpectateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{7}
+}
+
+func (m *SpectateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SpectateRequest.Unmarshal(m, b)
+}
+func (m *SpectateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SpectateRequest.Marshal(b, m, deterministic)
+}
+func (m *SpectateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SpectateRequest.Merge(m, src)
+}
+func (m *SpectateRequest) XXX_Size() int {
+	return xxx_messageInfo_SpectateRequest.Size(m)
+}
+func (m *SpectateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SpectateRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SpectateRequest proto.InternalMessageInfo
+
+type EntityUpdate struct {
+	Action               string   `protobuf:"bytes,1,opt,name=Action,proto3" json:"Action,omitempty"`
+	Entity               *Entity  `protobuf:"bytes,2,opt,name=Entity,proto3" json:"Entity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *EntityUpdate) Reset()         { *m = EntityUpdate{} }
+func (m *EntityUpdate) String() string { return proto.CompactTextString(m) }
+func (*EntityUpdate) ProtoMessage()    {}
+func (*EntityUpdate) Descriptor() ([]byte, []int) {
+	return fileDescriptor_961a558581160483, []int{8}
+}
+
+func (m *EntityUpdate) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EntityUpdate.Unmarshal(m, b)
+}
+func (m *EntityUpdate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EntityUpdate.Marshal(b, m, deterministic)
+}
+func (m *EntityUpdate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EntityUpdate.Merge(m, src)
+}
+func (m *EntityUpdate) XXX_Size() int {
+	return xxx_messageInfo_EntityUpdate.Size(m)
+}
+func (m *EntityUpdate) XXX_DiscardUnknown() {
+	xxx_messageInfo_EntityUpdate.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EntityUpdate proto.InternalMessageInfo
+
+func (m *EntityUpdate) GetAction() string {
+	if m != nil {
+		return m.Action
+	}
+	return ""
+}
+
+func (m *EntityUpdate) GetEntity() *Entity {
+	if m != nil {
+		return m.Entity
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterType((*SpawnAgentMessage)(nil), "pb.SpawnAgentMessage")
-	proto.RegisterType((*SpawnAgentResultMessage)(nil), "pb.SpawnAgentResultMessage")
-	proto.RegisterType((*ObserveRequestMessage)(nil), "pb.ObserveRequestMessage")
-	proto.RegisterType((*EntityUpdateMessage)(nil), "pb.EntityUpdateMessage")
+	proto.RegisterEnum("pb.AgentActionRequest_ActionType", AgentActionRequest_ActionType_name, AgentActionRequest_ActionType_value)
+	proto.RegisterType((*Entity)(nil), "pb.Entity")
+	proto.RegisterType((*SpawnAgentRequest)(nil), "pb.SpawnAgentRequest")
+	proto.RegisterType((*SpawnAgentResult)(nil), "pb.SpawnAgentResult")
+	proto.RegisterType((*AgentObservationRequest)(nil), "pb.AgentObservationRequest")
+	proto.RegisterType((*AgentObservationResult)(nil), "pb.AgentObservationResult")
+	proto.RegisterType((*AgentActionRequest)(nil), "pb.AgentActionRequest")
+	proto.RegisterType((*AgentActionResult)(nil), "pb.AgentActionResult")
+	proto.RegisterType((*SpectateRequest)(nil), "pb.SpectateRequest")
+	proto.RegisterType((*EntityUpdate)(nil), "pb.EntityUpdate")
 }
 
 func init() { proto.RegisterFile("simulation.proto", fileDescriptor_961a558581160483) }
 
 var fileDescriptor_961a558581160483 = []byte{
-	// 256 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x91, 0x4d, 0x4f, 0x83, 0x40,
-	0x10, 0x86, 0xbb, 0x28, 0x35, 0x4e, 0x8c, 0xd1, 0xd1, 0x0a, 0xd6, 0x8b, 0xd9, 0x93, 0x27, 0xfc,
-	0xfa, 0x05, 0x68, 0x3c, 0xf4, 0x60, 0x4c, 0x20, 0x26, 0xed, 0x71, 0x91, 0x49, 0x43, 0x82, 0xb0,
-	0x76, 0x06, 0x8d, 0xbf, 0xc3, 0x3f, 0x6c, 0xf8, 0x68, 0x2b, 0x91, 0xe3, 0x0b, 0xf3, 0x4e, 0x9e,
-	0x67, 0x16, 0x8e, 0x38, 0x7b, 0xaf, 0x72, 0x23, 0x59, 0x59, 0x04, 0x76, 0x55, 0x4a, 0x89, 0x8e,
-	0x4d, 0xf4, 0x35, 0x1c, 0xc7, 0xd6, 0x7c, 0x15, 0xe1, 0x92, 0x0a, 0x79, 0x26, 0x66, 0xb3, 0x24,
-	0x3c, 0x00, 0x35, 0xf7, 0xd5, 0xa5, 0xba, 0x72, 0x23, 0x35, 0xaf, 0xd3, 0xc2, 0x77, 0xda, 0xb4,
-	0xd0, 0xb7, 0xe0, 0x6d, 0x0b, 0x11, 0x71, 0x95, 0x6f, 0x6a, 0x67, 0x30, 0x8e, 0xc5, 0x48, 0xc5,
-	0x4d, 0x77, 0x3f, 0xea, 0x92, 0xf6, 0x60, 0xf2, 0x92, 0x30, 0xad, 0x3e, 0x29, 0xa2, 0x8f, 0x8a,
-	0x78, 0x5d, 0xd0, 0x25, 0x9c, 0x3c, 0x15, 0x92, 0xc9, 0xf7, 0xab, 0x4d, 0x8d, 0xd0, 0x9f, 0x3d,
-	0xe1, 0x5b, 0xcd, 0xb9, 0xde, 0xd3, 0x26, 0x3c, 0x04, 0x67, 0x96, 0x76, 0x24, 0xce, 0x2c, 0xc5,
-	0x53, 0x70, 0x1f, 0x73, 0xc3, 0xec, 0xef, 0x34, 0x63, 0x6d, 0x68, 0xe1, 0x77, 0x7b, 0xf0, 0x6e,
-	0x07, 0x7f, 0xf7, 0xa3, 0x00, 0xe2, 0xcd, 0x19, 0xf0, 0x01, 0x60, 0xeb, 0x82, 0x93, 0xc0, 0x26,
-	0xc1, 0xbf, 0x63, 0x4c, 0x2f, 0xfa, 0x9f, 0x7b, 0xca, 0x7a, 0x84, 0x21, 0xec, 0x75, 0x72, 0x78,
-	0x5e, 0x4f, 0x0e, 0x9a, 0x4e, 0xbd, 0xfa, 0xd7, 0x80, 0xab, 0x1e, 0xdd, 0xa8, 0x64, 0xdc, 0x3c,
-	0xc7, 0xfd, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x18, 0xc5, 0x33, 0xce, 0xa2, 0x01, 0x00, 0x00,
+	// 437 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x53, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0xcd, 0x6e, 0x3e, 0xe4, 0x4c, 0xab, 0xb2, 0x19, 0xda, 0x60, 0x19, 0x09, 0x85, 0x3d, 0xa0,
+	0x70, 0x09, 0x28, 0x15, 0x07, 0x84, 0x84, 0xa8, 0x68, 0x29, 0xa9, 0x80, 0xa2, 0x4d, 0x2a, 0xda,
+	0xa3, 0xed, 0x2c, 0xc8, 0x92, 0xb1, 0x4d, 0x77, 0x0d, 0xea, 0x9d, 0x3b, 0x7f, 0x19, 0x79, 0xd7,
+	0x4e, 0xec, 0xb8, 0x37, 0xcf, 0xc7, 0x9b, 0x7d, 0xef, 0xcd, 0x18, 0x98, 0x8a, 0x7e, 0xe6, 0xb1,
+	0xaf, 0xa3, 0x34, 0x99, 0x65, 0xb7, 0xa9, 0x4e, 0x91, 0x66, 0x01, 0xbf, 0x80, 0xc1, 0x59, 0xa2,
+	0x23, 0x7d, 0x87, 0x07, 0x40, 0x17, 0x6b, 0x97, 0x4e, 0xc8, 0xb4, 0x2f, 0xe8, 0x62, 0x8d, 0x87,
+	0xd0, 0x7f, 0x1f, 0xfb, 0x4a, 0xb9, 0xdd, 0x09, 0x99, 0x0e, 0x85, 0x0d, 0x70, 0x1f, 0xc8, 0xb5,
+	0xdb, 0x33, 0x4d, 0xe4, 0xba, 0x88, 0x6e, 0xdc, 0xbe, 0x8d, 0x6e, 0xf8, 0x0b, 0x18, 0x2d, 0x33,
+	0xff, 0x4f, 0x72, 0xf2, 0x43, 0x26, 0x5a, 0xc8, 0x5f, 0xb9, 0x54, 0xda, 0x02, 0x48, 0x03, 0x40,
+	0x2b, 0x00, 0x07, 0x56, 0x07, 0xa8, 0x3c, 0xd6, 0x25, 0x0d, 0x52, 0xd1, 0xe0, 0xcf, 0xe1, 0x91,
+	0x29, 0x5f, 0x06, 0x4a, 0xde, 0xfe, 0x36, 0xf4, 0xab, 0xd1, 0xbb, 0xad, 0xef, 0x60, 0xdc, 0x6e,
+	0x35, 0x43, 0x9f, 0x81, 0x63, 0x54, 0x46, 0x52, 0xb9, 0x64, 0xd2, 0x9d, 0xee, 0xcd, 0x61, 0x96,
+	0x05, 0x33, 0xab, 0x5c, 0x6c, 0x6a, 0xfc, 0x2f, 0x01, 0x34, 0x23, 0x4e, 0xc2, 0xfa, 0x43, 0xaf,
+	0x61, 0x60, 0x13, 0xe6, 0xb1, 0x83, 0xf9, 0xd3, 0x02, 0xdc, 0xee, 0x9b, 0xd9, 0x68, 0x75, 0x97,
+	0x49, 0x51, 0x02, 0xf8, 0x31, 0xc0, 0x36, 0x8b, 0x03, 0xa0, 0x57, 0x5f, 0x59, 0x07, 0x1d, 0xe8,
+	0x9d, 0x5e, 0x7e, 0xfb, 0xc2, 0x48, 0xf1, 0xf5, 0xe9, 0xec, 0xc3, 0x8a, 0x51, 0x1c, 0x42, 0x5f,
+	0x2c, 0xce, 0x3f, 0xae, 0x58, 0x97, 0x9f, 0xc3, 0xa8, 0x31, 0xdd, 0x68, 0x78, 0x02, 0xb0, 0xcc,
+	0xc3, 0x50, 0x2a, 0xf5, 0x3d, 0x8f, 0x0d, 0x11, 0x47, 0xd4, 0x32, 0x88, 0xd0, 0x3b, 0x4d, 0x13,
+	0x69, 0xdc, 0x75, 0x84, 0xf9, 0xe6, 0x23, 0x78, 0xb0, 0xcc, 0x64, 0xa8, 0x7d, 0x2d, 0x4b, 0x8e,
+	0xfc, 0x02, 0xf6, 0xad, 0xec, 0xab, 0x6c, 0xed, 0x6b, 0x89, 0xe3, 0x86, 0xb6, 0x61, 0x45, 0x1c,
+	0x79, 0x75, 0x18, 0x66, 0x60, 0xd3, 0xb0, 0xb2, 0x32, 0xff, 0x47, 0x01, 0x96, 0x9b, 0xab, 0xc2,
+	0x37, 0x00, 0xdb, 0x75, 0xe2, 0x51, 0x01, 0x68, 0xdd, 0x83, 0x77, 0xb8, 0x9b, 0x2e, 0xc4, 0xf1,
+	0x0e, 0x7e, 0x06, 0xb6, 0xbb, 0x3c, 0x7c, 0xbc, 0xf1, 0xb9, 0xbd, 0x7d, 0xcf, 0xbb, 0xbf, 0x58,
+	0x8e, 0x7b, 0x0b, 0x7b, 0x35, 0x0b, 0x71, 0x7c, 0xff, 0xc6, 0xbc, 0xa3, 0x56, 0xbe, 0xc4, 0xbf,
+	0x02, 0xa7, 0x72, 0x0e, 0x1f, 0x5a, 0xca, 0x0d, 0x1f, 0x3d, 0xb6, 0xf5, 0xc3, 0x3a, 0xc9, 0x3b,
+	0x2f, 0x49, 0x30, 0x30, 0x7f, 0xd6, 0xf1, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0x33, 0x36, 0x2d,
+	0xbe, 0x6d, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -252,10 +510,14 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SimulationClient interface {
-	// Execute something on data
-	SpawnAgent(ctx context.Context, in *SpawnAgentMessage, opts ...grpc.CallOption) (*SpawnAgentResultMessage, error)
-	// Observe simulation
-	Observe(ctx context.Context, in *ObserveRequestMessage, opts ...grpc.CallOption) (Simulation_ObserveClient, error)
+	// Spawn a new agent
+	SpawnAgent(ctx context.Context, in *SpawnAgentRequest, opts ...grpc.CallOption) (*SpawnAgentResult, error)
+	// Request observation data from an agent
+	AgentObservation(ctx context.Context, in *AgentObservationRequest, opts ...grpc.CallOption) (*AgentObservationResult, error)
+	// Perform an action on behalf of an agent
+	AgentAction(ctx context.Context, in *AgentActionRequest, opts ...grpc.CallOption) (*AgentActionResult, error)
+	// Spectate simulation
+	Spectate(ctx context.Context, in *SpectateRequest, opts ...grpc.CallOption) (Simulation_SpectateClient, error)
 }
 
 type simulationClient struct {
@@ -266,8 +528,8 @@ func NewSimulationClient(cc *grpc.ClientConn) SimulationClient {
 	return &simulationClient{cc}
 }
 
-func (c *simulationClient) SpawnAgent(ctx context.Context, in *SpawnAgentMessage, opts ...grpc.CallOption) (*SpawnAgentResultMessage, error) {
-	out := new(SpawnAgentResultMessage)
+func (c *simulationClient) SpawnAgent(ctx context.Context, in *SpawnAgentRequest, opts ...grpc.CallOption) (*SpawnAgentResult, error) {
+	out := new(SpawnAgentResult)
 	err := c.cc.Invoke(ctx, "/pb.Simulation/SpawnAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -275,12 +537,30 @@ func (c *simulationClient) SpawnAgent(ctx context.Context, in *SpawnAgentMessage
 	return out, nil
 }
 
-func (c *simulationClient) Observe(ctx context.Context, in *ObserveRequestMessage, opts ...grpc.CallOption) (Simulation_ObserveClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Simulation_serviceDesc.Streams[0], "/pb.Simulation/Observe", opts...)
+func (c *simulationClient) AgentObservation(ctx context.Context, in *AgentObservationRequest, opts ...grpc.CallOption) (*AgentObservationResult, error) {
+	out := new(AgentObservationResult)
+	err := c.cc.Invoke(ctx, "/pb.Simulation/AgentObservation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &simulationObserveClient{stream}
+	return out, nil
+}
+
+func (c *simulationClient) AgentAction(ctx context.Context, in *AgentActionRequest, opts ...grpc.CallOption) (*AgentActionResult, error) {
+	out := new(AgentActionResult)
+	err := c.cc.Invoke(ctx, "/pb.Simulation/AgentAction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *simulationClient) Spectate(ctx context.Context, in *SpectateRequest, opts ...grpc.CallOption) (Simulation_SpectateClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Simulation_serviceDesc.Streams[0], "/pb.Simulation/Spectate", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simulationSpectateClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -290,17 +570,17 @@ func (c *simulationClient) Observe(ctx context.Context, in *ObserveRequestMessag
 	return x, nil
 }
 
-type Simulation_ObserveClient interface {
-	Recv() (*EntityUpdateMessage, error)
+type Simulation_SpectateClient interface {
+	Recv() (*EntityUpdate, error)
 	grpc.ClientStream
 }
 
-type simulationObserveClient struct {
+type simulationSpectateClient struct {
 	grpc.ClientStream
 }
 
-func (x *simulationObserveClient) Recv() (*EntityUpdateMessage, error) {
-	m := new(EntityUpdateMessage)
+func (x *simulationSpectateClient) Recv() (*EntityUpdate, error) {
+	m := new(EntityUpdate)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -309,10 +589,14 @@ func (x *simulationObserveClient) Recv() (*EntityUpdateMessage, error) {
 
 // SimulationServer is the server API for Simulation service.
 type SimulationServer interface {
-	// Execute something on data
-	SpawnAgent(context.Context, *SpawnAgentMessage) (*SpawnAgentResultMessage, error)
-	// Observe simulation
-	Observe(*ObserveRequestMessage, Simulation_ObserveServer) error
+	// Spawn a new agent
+	SpawnAgent(context.Context, *SpawnAgentRequest) (*SpawnAgentResult, error)
+	// Request observation data from an agent
+	AgentObservation(context.Context, *AgentObservationRequest) (*AgentObservationResult, error)
+	// Perform an action on behalf of an agent
+	AgentAction(context.Context, *AgentActionRequest) (*AgentActionResult, error)
+	// Spectate simulation
+	Spectate(*SpectateRequest, Simulation_SpectateServer) error
 }
 
 func RegisterSimulationServer(s *grpc.Server, srv SimulationServer) {
@@ -320,7 +604,7 @@ func RegisterSimulationServer(s *grpc.Server, srv SimulationServer) {
 }
 
 func _Simulation_SpawnAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpawnAgentMessage)
+	in := new(SpawnAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -332,29 +616,65 @@ func _Simulation_SpawnAgent_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/pb.Simulation/SpawnAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).SpawnAgent(ctx, req.(*SpawnAgentMessage))
+		return srv.(SimulationServer).SpawnAgent(ctx, req.(*SpawnAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Simulation_Observe_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ObserveRequestMessage)
+func _Simulation_AgentObservation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AgentObservationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimulationServer).AgentObservation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.Simulation/AgentObservation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimulationServer).AgentObservation(ctx, req.(*AgentObservationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Simulation_AgentAction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AgentActionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimulationServer).AgentAction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.Simulation/AgentAction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimulationServer).AgentAction(ctx, req.(*AgentActionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Simulation_Spectate_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SpectateRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(SimulationServer).Observe(m, &simulationObserveServer{stream})
+	return srv.(SimulationServer).Spectate(m, &simulationSpectateServer{stream})
 }
 
-type Simulation_ObserveServer interface {
-	Send(*EntityUpdateMessage) error
+type Simulation_SpectateServer interface {
+	Send(*EntityUpdate) error
 	grpc.ServerStream
 }
 
-type simulationObserveServer struct {
+type simulationSpectateServer struct {
 	grpc.ServerStream
 }
 
-func (x *simulationObserveServer) Send(m *EntityUpdateMessage) error {
+func (x *simulationSpectateServer) Send(m *EntityUpdate) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -366,11 +686,19 @@ var _Simulation_serviceDesc = grpc.ServiceDesc{
 			MethodName: "SpawnAgent",
 			Handler:    _Simulation_SpawnAgent_Handler,
 		},
+		{
+			MethodName: "AgentObservation",
+			Handler:    _Simulation_AgentObservation_Handler,
+		},
+		{
+			MethodName: "AgentAction",
+			Handler:    _Simulation_AgentAction_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Observe",
-			Handler:       _Simulation_Observe_Handler,
+			StreamName:    "Spectate",
+			Handler:       _Simulation_Spectate_Handler,
 			ServerStreams: true,
 		},
 	},

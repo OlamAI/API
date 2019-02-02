@@ -1,29 +1,68 @@
 syntax = "proto3";
 package pb;
 
-message SpawnAgentMessage {
-  int32 X = 1;
-  int32 Y = 2;
-}
+// Message types
+// Request - request some type of action
+// Result  - result of a request
+// Update  - get data
 
-message SpawnAgentResultMessage {
-  string Status = 1;
-}
-
-// TODO - implement this function
-message ObserveRequestMessage {}
-
-message EntityUpdateMessage {
-  string Action = 1;
+message Entity {
   int32 Id = 2;
   string Class = 3;
   int32 X = 4;
   int32 Y = 5;
 }
 
+message SpawnAgentRequest {
+  int32 X = 1;
+  int32 Y = 2;
+}
+message SpawnAgentResult {
+  int32 Id = 1;
+}
+
+message AgentObservationRequest {
+  int32 Id = 1;
+}
+message AgentObservationResult {
+  repeated Entity Entities = 1;
+}
+
+message AgentActionRequest {
+  enum ActionType {
+    UP = 0;
+    DOWN = 1;
+    LEFT = 2;
+    RIGHT = 3;
+  }
+  // The action you would like to perform
+  ActionType Action = 1;
+}
+message AgentActionResult {
+  // Whether or not the action was succesful
+  // Could be unsuccesful if attempting to interract with an entity
+  //  that is not in range, already consumed, etc.
+  bool Successful = 1;
+  // Whether this agent is done or not. If they agent has died this
+  //  will be true.
+  bool Done = 2;
+}
+
+// TODO - implement this
+message SpectateRequest {}
+message EntityUpdate {
+  string Action = 1;
+  Entity Entity = 2;
+}
+
 service Simulation {
-  // Execute something on data
-  rpc SpawnAgent(SpawnAgentMessage) returns (SpawnAgentResultMessage) {}
-  // Observe simulation
-  rpc Observe(ObserveRequestMessage) returns (stream EntityUpdateMessage) {}
+  // Spawn a new agent
+  rpc SpawnAgent(SpawnAgentRequest) returns (SpawnAgentResult) {}
+  // Request observation data from an agent
+  rpc AgentObservation(AgentObservationRequest) returns (AgentObservationResult) {}
+  // Perform an action on behalf of an agent
+  rpc AgentAction(AgentActionRequest) returns (AgentActionResult) {}
+
+  // Spectate simulation
+  rpc Spectate(SpectateRequest) returns (stream EntityUpdate) {}
 }
