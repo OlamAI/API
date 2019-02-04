@@ -7,10 +7,8 @@ package pb;
 // Update  - get data
 
 message Entity {
-  int32 Id = 2;
+  string Id = 2;
   string Class = 3;
-  int32 X = 4;
-  int32 Y = 5;
 }
 
 message SpawnAgentRequest {
@@ -18,27 +16,28 @@ message SpawnAgentRequest {
   int32 Y = 2;
 }
 message SpawnAgentResult {
-  int32 Id = 1;
+  string Id = 1;
 }
 
 message AgentObservationRequest {
-  int32 Id = 1;
+  string Id = 1;
 }
 message AgentObservationResult {
   repeated Entity Entities = 1;
 }
 
 message AgentActionRequest {
-  enum ActionType {
-    UP = 0;
-    DOWN = 1;
-    LEFT = 2;
-    RIGHT = 3;
-  }
+  // TODO - switch to enum instead of string for Action
+  // enum ActionType {
+  //   UP = 0;
+  //   DOWN = 1;
+  //   LEFT = 2;
+  //   RIGHT = 3;
+  // }
   // Id of the agent
-  int32 Id = 1;
+  string Id = 1;
   // The action you would like to perform
-  ActionType Action = 2;
+  string Action = 2;
 }
 message AgentActionResult {
   // Whether or not the action was succesful
