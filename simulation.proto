@@ -6,15 +6,7 @@ package pb;
 // Result  - result of a request
 // Update  - get data
 
-message Entity {
-  string Id = 2;
-  string Class = 3;
-}
-
-message SpawnAgentRequest {
-  int32 X = 1;
-  int32 Y = 2;
-}
+message SpawnAgentRequest {}
 message SpawnAgentResult {
   string Id = 1;
 }
@@ -23,7 +15,7 @@ message AgentObservationRequest {
   string Id = 1;
 }
 message AgentObservationResult {
-  repeated Entity Entities = 1;
+  repeated string Cells = 2;
 }
 
 message AgentActionRequest {
@@ -51,9 +43,10 @@ message AgentActionResult {
 
 // TODO - implement this
 message SpectateRequest {}
-message EntityUpdate {
-  string Action = 1;
-  Entity Entity = 2;
+message CellUpdate {
+  int32 X = 1;
+  int32 Y = 2;
+  string Occupant = 3;
 }
 
 service Simulation {
@@ -65,5 +58,5 @@ service Simulation {
   rpc AgentAction(AgentActionRequest) returns (AgentActionResult) {}
 
   // Spectate simulation
-  rpc Spectate(SpectateRequest) returns (stream EntityUpdate) {}
+  rpc Spectate(SpectateRequest) returns (stream CellUpdate) {}
 }
