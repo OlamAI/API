@@ -20,6 +20,7 @@ message AgentObservationRequest {
 message AgentObservationResult {
   repeated string Cells = 1;
   int32 Energy = 2;
+  int32 Health = 3;
 }
 
 message AgentActionRequest {
