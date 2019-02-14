@@ -18,9 +18,10 @@ message AgentObservationRequest {
   string Id = 1;
 }
 message AgentObservationResult {
-  repeated string Cells = 1;
-  int32 Energy = 2;
-  int32 Health = 3;
+  bool Alive = 1;
+  repeated string Cells = 2;
+  int32 Energy = 3;
+  int32 Health = 4;
 }
 
 message AgentActionRequest {
@@ -45,6 +46,9 @@ message AgentActionResult {
   bool Successful = 1;
 }
 
+message ResetWorldRequest {}
+message ResetWorldResult {}
+
 // TODO - implement this
 message SpectateRequest {}
 message CellUpdate {
@@ -54,12 +58,17 @@ message CellUpdate {
 }
 
 service Simulation {
+  // --- DEV ONLY ---
   // Spawn a new agent
   rpc SpawnAgent(SpawnAgentRequest) returns (SpawnAgentResult) {}
   // Request observation data from an agent
   rpc AgentObservation(AgentObservationRequest) returns (AgentObservationResult) {}
   // Perform an action on behalf of an agent
   rpc AgentAction(AgentActionRequest) returns (AgentActionResult) {}
+  // Perform an action on behalf of an agent
+  rpc ResetWorld(ResetWorldRequest) returns (ResetWorldResult) {}
+
+  // --- END DEV ---
 
   // Spectate simulation
   rpc Spectate(SpectateRequest) returns (stream CellUpdate) {}
