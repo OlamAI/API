@@ -18,9 +18,14 @@ message AgentObservationRequest {
   string Id = 1;
 }
 message AgentObservationResult {
-  repeated string Cells = 1;
-  int32 Energy = 2;
+  bool Alive = 1;
+  repeated string Cells = 2;
+  int32 Energy = 3;
+  int32 Health = 4;
 }
+
+message ResetWorldRequest {}
+message ResetWorldResult {}
 
 message AgentActionRequest {
   // TODO - switch to enum instead of string for Action
