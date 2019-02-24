@@ -50,7 +50,9 @@ message AgentActionResult {
 }
 
 // TODO - implement this
-message SpectateRequest {}
+message SpectateRequest {
+  string Id = 1;
+}
 message CellUpdate {
   int32 X = 1;
   int32 Y = 2;
@@ -58,6 +60,8 @@ message CellUpdate {
 }
 
 message SubscribeToRegionRequest{
+  // TODO - Put this in metadata instead of packet
+  string Id = 1;
   int32 X = 2;
   int32 Y = 3;
 }
