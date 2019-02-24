@@ -1,17 +1,28 @@
 API_REST_OUT := "build-rest/" # TODO - NO API ENDPOINT
 PKG := "github.com/olamai/api"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
-
+JS_OUT := "../web-client/lib/proto"
+PY_OUT := "../python-client"
 .PHONY: all
 
-all: compile
+all: compileGO compileJS
 
-compile: # compile proto files
+compileGO: # compile proto files
 		@protoc \
 		-I ./ \
 		-I${GOPATH}/src \
 		--go_out=plugins=grpc:./ \
 		./*.proto
+
+compileJS:
+		@protoc -I=./ simulation.proto \
+		--js_out=import_style=commonjs:${JS_OUT} \
+		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:${JS_OUT}
+
+compilePY:
+		@python3 -m grpc_tools.protoc -I./ ./simulation.proto \
+		--python_out=${PY_OUT} \
+		--grpc_python_out=${PY_OUT}
 
 dep: ## Get the dependencies
 	@go get -v -d ./...

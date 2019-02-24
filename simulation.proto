@@ -57,6 +57,12 @@ message CellUpdate {
   string Occupant = 3;
 }
 
+message SubscribeToRegionRequest{
+  int32 X = 2;
+  int32 Y = 3;
+}
+message SubscribeToRegionResult {}
+
 service Simulation {
   // Spawn a new agent
   rpc SpawnAgent(SpawnAgentRequest) returns (SpawnAgentResult) {}
@@ -64,7 +70,10 @@ service Simulation {
   rpc AgentObservation(AgentObservationRequest) returns (AgentObservationResult) {}
   // Perform an action on behalf of an agent
   rpc AgentAction(AgentActionRequest) returns (AgentActionResult) {}
-
+  // Reset the world
+  rpc ResetWorld(ResetWorldRequest) returns (ResetWorldResult) {}
   // Spectate simulation
   rpc Spectate(SpectateRequest) returns (stream CellUpdate) {}
+  // Subscribe to region
+  rpc SubscribeToRegion(SubscribeToRegionRequest) returns (SubscribeToRegionResult) {}
 }
