@@ -1,5 +1,5 @@
 syntax = "proto3";
-package pb;
+package olamai.endpoints.simulation;
 
 // Message types
 // Request - request some type of action

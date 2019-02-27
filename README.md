@@ -7,3 +7,7 @@ protoc -I=./ simulation.proto \
 ## Compile Python
 
 python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./simulation.proto
+
+# Connect to cluster from kubetcl
+
+gcloud container clusters get-credentials --zone us-central1-a [CLUSTER_NAME]

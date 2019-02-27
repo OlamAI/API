@@ -1,5 +1,5 @@
 syntax = "proto3";
-package pb;
+package endpoints.olamai.modelRunner;
 
 message LoadModelMessage {
   string ModelName = 1;
