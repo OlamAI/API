@@ -1,5 +1,3 @@
-x-google-allow: all
-
 # The configuration schema is defined by service.proto file
 # https://github.com/googleapis/googleapis/blob/master/google/api/service.proto
 type: google.api.Service
@@ -31,4 +29,6 @@ usage:
     - selector: olamai.endpoints.simulation.Simulation.AgentAction
       allow_unregistered_calls: true
     - selector: olamai.endpoints.simulation.Simulation.ResetWorld
+      allow_unregistered_calls: true
+    - selector: olamai.endpoints.simulation.Simulation.SpawnAgent
       allow_unregistered_calls: true
