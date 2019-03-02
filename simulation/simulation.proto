@@ -1,83 +1,139 @@
 syntax = "proto3";
 package olamai.endpoints.simulation;
 
-// Message types
-// Request - request some type of action
-// Result  - result of a request
-// Update  - get data
+import "annotations.proto";
 
-message SpawnAgentRequest {
-  int32 X = 1;
-  int32 Y = 2;
-}
-message SpawnAgentResult {
-  string Id = 1;
+message Empty {}
+
+message Agent {
+  string id = 1;
+  int32 x = 2;
+  int32 y = 3;
 }
 
-message AgentObservationRequest {
-  string Id = 1;
-}
-message AgentObservationResult {
-  bool Alive = 1;
-  repeated string Cells = 2;
-  int32 Energy = 3;
-  int32 Health = 4;
+message Observation {
+  bool alive = 1;
+  repeated string cells = 2;
+  int32 energy = 3;
+  int32 health = 4;
 }
 
-message ResetWorldRequest {}
-message ResetWorldResult {}
-
-message AgentActionRequest {
-  // TODO - switch to enum instead of string for Action
-  // enum ActionType {
-  //   UP = 0;
-  //   DOWN = 1;
-  //   LEFT = 2;
-  //   RIGHT = 3;
-  // }
-  // Id of the agent
-  string Id = 1;
-  // The action you would like to perform
-  string Action = 2;
-  // The direction the action should go
-  string Direction = 3;
-}
-message AgentActionResult {
-  // Whether or not the action was succesful
-  // Could be unsuccesful if attempting to interract with an entity
-  //  that is not in range, already consumed, etc.
-  bool Successful = 1;
+message Action {
+  string actionId = 1;
+  string direction = 2;
 }
 
-// TODO - implement this
-message SpectateRequest {
-  string Id = 1;
-}
 message CellUpdate {
-  int32 X = 1;
-  int32 Y = 2;
-  string Occupant = 3;
+  int32 x = 1;
+  int32 y = 2;
+  string occupant = 3;
 }
 
-message SubscribeToRegionRequest{
-  // TODO - Put this in metadata instead of packet
-  string Id = 1;
-  int32 X = 2;
-  int32 Y = 3;
+message Spectator {
+  string id = 1;
 }
-message SubscribeToRegionResult {}
+
+message Region {
+  int32 x = 1;
+  int32 y = 2;
+}
 
 service Simulation {
-  // Spawn a new agent
-  rpc SpawnAgent(SpawnAgentRequest) returns (SpawnAgentResult) {}
-  // Request observation data from an agent
-  rpc AgentObservation(AgentObservationRequest) returns (AgentObservationResult) {}
-  // Perform an action on behalf of an agent
-  rpc AgentAction(AgentActionRequest) returns (AgentActionResult) {}
+  // Creates a new agent
+  rpc CreateAgent(CreateAgentRequest) returns (Agent) {
+    // Client example:
+    //   curl -d '{"x":1, "y", 1}' http://DOMAIN_NAME/v1/agents
+    option (google.api.http) = {
+      post: "/v1/agents"
+      body: "agent"
+    };
+  }
+  // Returns a specific agent
+  rpc GetAgent(GetAgentRequest) returns (Agent) {
+    // Client example - returns the agent with id 1:
+    //   curl http://DOMAIN_NAME/v1/shelves/1
+    option (google.api.http) = { get: "/v1/agents/{agent}" };
+  }
+  // Deletes an agent
+  rpc DeleteAgent(DeleteAgentRequest) returns (Empty) {
+    // Client example - deletes the agent with id 2:
+    //   curl -X DELETE http://DOMAIN_NAME/v1/agents/2
+    option (google.api.http) = { delete: "/v1/agents/{agent}" };
+  }
+  // Perform agent action
+  rpc ActionAgent(ActionAgentRequest) returns (Empty) {
+    // Client example:
+    //   curl -d '{"actionId":"MOVE", "direction": "UP"}' http://DOMAIN_NAME/v1/agents/1
+    option (google.api.http) = {
+      post: "/v1/agents/{agent}"
+      body: "action"
+    };
+  }
+
+
+  // Returns a specific book.
+  rpc GetObservation(GetObservationRequest) returns (Observation) {
+    // Client example - get the observation from agent 1
+    //   curl http://DOMAIN_NAME/v1/observations/1
+    option (google.api.http) = { get: "/v1/observations/{agent}" };
+  }
+
+  // Start a spectation stream
+  rpc CreateSpectator(CreateSpectatorRequest) returns (stream CellUpdate) {
+    option (google.api.http) = {
+      post: "/v1/spectators/"
+      body: "spectator"
+    };
+  }
+  // Subscribe a spectator to a region
+  rpc SubscribeSpectator(SubscribeSpectatorRequest) returns (Empty) {
+    // Client example:
+    //   curl -d '{"actionId":"MOVE", "direction": "UP"}' http://DOMAIN_NAME/v1/agents/1
+    option (google.api.http) = {
+      post: "/v1/spectators/{spectator}"
+      body: "region"
+    };
+  }
   // Reset the world
-  rpc ResetWorld(ResetWorldRequest) returns (ResetWorldResult) {}
-  // Spectate simulation
-  rpc Spectate(SpectateRequest) returns (stream CellUpdate) {}
-  // Subscribe to region
-  rpc SubscribeToRegion(SubscribeToRegionRequest) returns (SubscribeToRegionResult) {}
+  rpc ResetWorld(Empty) returns (Empty) {
+    option (google.api.http) = { delete: "/v1/world" };
+  }
+}
+
+// Request message for CreateShelf method.
+message CreateAgentRequest {
+  // The shelf resource to create.
+  Agent agent = 1;
+}
+
+// Request message for GetAgent method.
+message GetAgentRequest {
+  // The ID of the shelf resource to retrieve.
+  string agent = 1;
+}
+
+// Request message for DeleteShelf method.
+message DeleteAgentRequest {
+  // The ID of the shelf to delete.
+  string agent = 1;
+}
+
+message ActionAgentRequest {
+  string agent = 1;
+  string actionId = 2;
+  string direction = 3;
+}
+
+// Request message for GetAgent method.
+message GetObservationRequest {
+  // The ID of the shelf resource to retrieve.
+  string agent = 1;
+}
+
+message CreateSpectatorRequest {
+  Spectator spectator = 1;
+}
+message SubscribeSpectatorRequest {
+  string spectator = 1;
+  Region region = 2;
 }

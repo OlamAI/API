@@ -2,7 +2,7 @@ API_REST_OUT := "build-rest/" # TODO - NO API ENDPOINT
 PKG := "github.com/olamai/api"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 JS_OUT := "../web-client/lib/proto"
-PY_OUT := "../python-client/lib/proto"
+PY_OUT := "../../python-client/"
 .PHONY: all
 
 all: compileGO compileJS compilePY
@@ -13,6 +13,7 @@ compileGO: # compile proto files
 	-I${GOPATH}/src \
 	--include_imports \
 	--include_source_info \
+	--proto_path=/usr/local/include \
 	--proto_path=./simulation \
 	--go_out=plugins=grpc:./ \
 	--descriptor_set_out=./simulation/api_descriptor.pb	\
@@ -20,13 +21,14 @@ compileGO: # compile proto files
 
 compileJS:
 	@protoc -I=./ ./**/*.proto \
+	--proto_path=/usr/local/include \
 	--js_out=import_style=commonjs:${JS_OUT} \
 	--grpc-web_out=import_style=commonjs,mode=grpcwebtext:${JS_OUT}
 
 compilePY:
 	@python3 -m grpc_tools.protoc -I./ ./*.proto \
-	--python_out=${PY_OUT} \
-	--grpc_python_out=${PY_OUT}
+		--python_out=. \
+		--grpc_python_out=.
 
 dep: ## Get the dependencies
 	@go get -v -d ./...
@@ -58,3 +60,9 @@ docker-clean: down ## shuts down the API and then clears out saved Docker images
 	rm -f api
 	docker system prune -f
 	docker volume prune -f
+
+# python3 -m grpc_tools.protoc -I/usr/local/include/google/api http.proto  --python_out=.
+# python3 -m grpc_tools.protoc -I/usr/local/include -I/usr/local/include/google/api annotations.proto  --python_out=.
+
+# python3 -m grpc_tools.protoc -I. http.proto  --python_out=.
+# python3 -m grpc_tools.protoc -I. annotations.proto  --python_out=.

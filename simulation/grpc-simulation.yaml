@@ -19,11 +19,11 @@ metadata:
   name: esp-grpc-http1-simulation
 spec:
   ports:
-  # Port that accepts gRPC and JSON/HTTP2 requests over HTTP.
+  # Port that accepts gRPC and JSON/HTTP1 requests over HTTP.
   - port: 80
-    targetPort: 8000
+    targetPort: 8080
     protocol: TCP
-    name: http2
+    name: http1
   selector:
     app: esp-grpc-simulation
   type: LoadBalancer
@@ -43,12 +43,7 @@ spec:
       - name: esp
         image: gcr.io/endpoints-release/endpoints-runtime:1.16.0
         args: [
-          "--http_port=8000",
           "--http2_port=9000",
-          "--cors_preset=basic",
-          '--cors_allow_methods="GET,POST,PUT,OPTIONS"',
-          '--cors_allow_headers="Origin,Content-Type,Accept,keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout,token"',
-          "--cors_allow_origin=http://localhost:3000",
           "--service=olamai.endpoints.olamai.cloud.goog",
           "--rollout_strategy=managed",
           "--backend=grpc://127.0.0.1:9090"

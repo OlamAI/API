@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	math "math"
 )
@@ -22,407 +23,206 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type SpawnAgentRequest struct {
-	X                    int32    `protobuf:"varint,1,opt,name=X,proto3" json:"X,omitempty"`
-	Y                    int32    `protobuf:"varint,2,opt,name=Y,proto3" json:"Y,omitempty"`
+type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SpawnAgentRequest) Reset()         { *m = SpawnAgentRequest{} }
-func (m *SpawnAgentRequest) String() string { return proto.CompactTextString(m) }
-func (*SpawnAgentRequest) ProtoMessage()    {}
-func (*SpawnAgentRequest) Descriptor() ([]byte, []int) {
+func (m *Empty) Reset()         { *m = Empty{} }
+func (m *Empty) String() string { return proto.CompactTextString(m) }
+func (*Empty) ProtoMessage()    {}
+func (*Empty) Descriptor() ([]byte, []int) {
 	return fileDescriptor_17e12b66aec6c312, []int{0}
 }
 
-func (m *SpawnAgentRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SpawnAgentRequest.Unmarshal(m, b)
+func (m *Empty) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Empty.Unmarshal(m, b)
 }
-func (m *SpawnAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SpawnAgentRequest.Marshal(b, m, deterministic)
+func (m *Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Empty.Marshal(b, m, deterministic)
 }
-func (m *SpawnAgentRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SpawnAgentRequest.Merge(m, src)
+func (m *Empty) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Empty.Merge(m, src)
 }
-func (m *SpawnAgentRequest) XXX_Size() int {
-	return xxx_messageInfo_SpawnAgentRequest.Size(m)
+func (m *Empty) XXX_Size() int {
+	return xxx_messageInfo_Empty.Size(m)
 }
-func (m *SpawnAgentRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SpawnAgentRequest.DiscardUnknown(m)
+func (m *Empty) XXX_DiscardUnknown() {
+	xxx_messageInfo_Empty.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SpawnAgentRequest proto.InternalMessageInfo
+var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-func (m *SpawnAgentRequest) GetX() int32 {
+type Agent struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	X                    int32    `protobuf:"varint,2,opt,name=x,proto3" json:"x,omitempty"`
+	Y                    int32    `protobuf:"varint,3,opt,name=y,proto3" json:"y,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Agent) Reset()         { *m = Agent{} }
+func (m *Agent) String() string { return proto.CompactTextString(m) }
+func (*Agent) ProtoMessage()    {}
+func (*Agent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{1}
+}
+
+func (m *Agent) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Agent.Unmarshal(m, b)
+}
+func (m *Agent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Agent.Marshal(b, m, deterministic)
+}
+func (m *Agent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Agent.Merge(m, src)
+}
+func (m *Agent) XXX_Size() int {
+	return xxx_messageInfo_Agent.Size(m)
+}
+func (m *Agent) XXX_DiscardUnknown() {
+	xxx_messageInfo_Agent.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Agent proto.InternalMessageInfo
+
+func (m *Agent) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Agent) GetX() int32 {
 	if m != nil {
 		return m.X
 	}
 	return 0
 }
 
-func (m *SpawnAgentRequest) GetY() int32 {
+func (m *Agent) GetY() int32 {
 	if m != nil {
 		return m.Y
 	}
 	return 0
 }
 
-type SpawnAgentResult struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
+type Observation struct {
+	Alive                bool     `protobuf:"varint,1,opt,name=alive,proto3" json:"alive,omitempty"`
+	Cells                []string `protobuf:"bytes,2,rep,name=cells,proto3" json:"cells,omitempty"`
+	Energy               int32    `protobuf:"varint,3,opt,name=energy,proto3" json:"energy,omitempty"`
+	Health               int32    `protobuf:"varint,4,opt,name=health,proto3" json:"health,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SpawnAgentResult) Reset()         { *m = SpawnAgentResult{} }
-func (m *SpawnAgentResult) String() string { return proto.CompactTextString(m) }
-func (*SpawnAgentResult) ProtoMessage()    {}
-func (*SpawnAgentResult) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{1}
-}
-
-func (m *SpawnAgentResult) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SpawnAgentResult.Unmarshal(m, b)
-}
-func (m *SpawnAgentResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SpawnAgentResult.Marshal(b, m, deterministic)
-}
-func (m *SpawnAgentResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SpawnAgentResult.Merge(m, src)
-}
-func (m *SpawnAgentResult) XXX_Size() int {
-	return xxx_messageInfo_SpawnAgentResult.Size(m)
-}
-func (m *SpawnAgentResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_SpawnAgentResult.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SpawnAgentResult proto.InternalMessageInfo
-
-func (m *SpawnAgentResult) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type AgentObservationRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AgentObservationRequest) Reset()         { *m = AgentObservationRequest{} }
-func (m *AgentObservationRequest) String() string { return proto.CompactTextString(m) }
-func (*AgentObservationRequest) ProtoMessage()    {}
-func (*AgentObservationRequest) Descriptor() ([]byte, []int) {
+func (m *Observation) Reset()         { *m = Observation{} }
+func (m *Observation) String() string { return proto.CompactTextString(m) }
+func (*Observation) ProtoMessage()    {}
+func (*Observation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_17e12b66aec6c312, []int{2}
 }
 
-func (m *AgentObservationRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AgentObservationRequest.Unmarshal(m, b)
+func (m *Observation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Observation.Unmarshal(m, b)
 }
-func (m *AgentObservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AgentObservationRequest.Marshal(b, m, deterministic)
+func (m *Observation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Observation.Marshal(b, m, deterministic)
 }
-func (m *AgentObservationRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AgentObservationRequest.Merge(m, src)
+func (m *Observation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Observation.Merge(m, src)
 }
-func (m *AgentObservationRequest) XXX_Size() int {
-	return xxx_messageInfo_AgentObservationRequest.Size(m)
+func (m *Observation) XXX_Size() int {
+	return xxx_messageInfo_Observation.Size(m)
 }
-func (m *AgentObservationRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AgentObservationRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AgentObservationRequest proto.InternalMessageInfo
-
-func (m *AgentObservationRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
+func (m *Observation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Observation.DiscardUnknown(m)
 }
 
-type AgentObservationResult struct {
-	Alive                bool     `protobuf:"varint,1,opt,name=Alive,proto3" json:"Alive,omitempty"`
-	Cells                []string `protobuf:"bytes,2,rep,name=Cells,proto3" json:"Cells,omitempty"`
-	Energy               int32    `protobuf:"varint,3,opt,name=Energy,proto3" json:"Energy,omitempty"`
-	Health               int32    `protobuf:"varint,4,opt,name=Health,proto3" json:"Health,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
+var xxx_messageInfo_Observation proto.InternalMessageInfo
 
-func (m *AgentObservationResult) Reset()         { *m = AgentObservationResult{} }
-func (m *AgentObservationResult) String() string { return proto.CompactTextString(m) }
-func (*AgentObservationResult) ProtoMessage()    {}
-func (*AgentObservationResult) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{3}
-}
-
-func (m *AgentObservationResult) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AgentObservationResult.Unmarshal(m, b)
-}
-func (m *AgentObservationResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AgentObservationResult.Marshal(b, m, deterministic)
-}
-func (m *AgentObservationResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AgentObservationResult.Merge(m, src)
-}
-func (m *AgentObservationResult) XXX_Size() int {
-	return xxx_messageInfo_AgentObservationResult.Size(m)
-}
-func (m *AgentObservationResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_AgentObservationResult.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AgentObservationResult proto.InternalMessageInfo
-
-func (m *AgentObservationResult) GetAlive() bool {
+func (m *Observation) GetAlive() bool {
 	if m != nil {
 		return m.Alive
 	}
 	return false
 }
 
-func (m *AgentObservationResult) GetCells() []string {
+func (m *Observation) GetCells() []string {
 	if m != nil {
 		return m.Cells
 	}
 	return nil
 }
 
-func (m *AgentObservationResult) GetEnergy() int32 {
+func (m *Observation) GetEnergy() int32 {
 	if m != nil {
 		return m.Energy
 	}
 	return 0
 }
 
-func (m *AgentObservationResult) GetHealth() int32 {
+func (m *Observation) GetHealth() int32 {
 	if m != nil {
 		return m.Health
 	}
 	return 0
 }
 
-type ResetWorldRequest struct {
+type Action struct {
+	ActionId             string   `protobuf:"bytes,1,opt,name=actionId,proto3" json:"actionId,omitempty"`
+	Direction            string   `protobuf:"bytes,2,opt,name=direction,proto3" json:"direction,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ResetWorldRequest) Reset()         { *m = ResetWorldRequest{} }
-func (m *ResetWorldRequest) String() string { return proto.CompactTextString(m) }
-func (*ResetWorldRequest) ProtoMessage()    {}
-func (*ResetWorldRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{4}
+func (m *Action) Reset()         { *m = Action{} }
+func (m *Action) String() string { return proto.CompactTextString(m) }
+func (*Action) ProtoMessage()    {}
+func (*Action) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{3}
 }
 
-func (m *ResetWorldRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ResetWorldRequest.Unmarshal(m, b)
+func (m *Action) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Action.Unmarshal(m, b)
 }
-func (m *ResetWorldRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ResetWorldRequest.Marshal(b, m, deterministic)
+func (m *Action) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Action.Marshal(b, m, deterministic)
 }
-func (m *ResetWorldRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ResetWorldRequest.Merge(m, src)
+func (m *Action) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Action.Merge(m, src)
 }
-func (m *ResetWorldRequest) XXX_Size() int {
-	return xxx_messageInfo_ResetWorldRequest.Size(m)
+func (m *Action) XXX_Size() int {
+	return xxx_messageInfo_Action.Size(m)
 }
-func (m *ResetWorldRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ResetWorldRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ResetWorldRequest proto.InternalMessageInfo
-
-type ResetWorldResult struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+func (m *Action) XXX_DiscardUnknown() {
+	xxx_messageInfo_Action.DiscardUnknown(m)
 }
 
-func (m *ResetWorldResult) Reset()         { *m = ResetWorldResult{} }
-func (m *ResetWorldResult) String() string { return proto.CompactTextString(m) }
-func (*ResetWorldResult) ProtoMessage()    {}
-func (*ResetWorldResult) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{5}
-}
+var xxx_messageInfo_Action proto.InternalMessageInfo
 
-func (m *ResetWorldResult) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ResetWorldResult.Unmarshal(m, b)
-}
-func (m *ResetWorldResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ResetWorldResult.Marshal(b, m, deterministic)
-}
-func (m *ResetWorldResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ResetWorldResult.Merge(m, src)
-}
-func (m *ResetWorldResult) XXX_Size() int {
-	return xxx_messageInfo_ResetWorldResult.Size(m)
-}
-func (m *ResetWorldResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_ResetWorldResult.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ResetWorldResult proto.InternalMessageInfo
-
-type AgentActionRequest struct {
-	// TODO - switch to enum instead of string for Action
-	// enum ActionType {
-	//   UP = 0;
-	//   DOWN = 1;
-	//   LEFT = 2;
-	//   RIGHT = 3;
-	// }
-	// Id of the agent
-	Id string `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	// The action you would like to perform
-	Action string `protobuf:"bytes,2,opt,name=Action,proto3" json:"Action,omitempty"`
-	// The direction the action should go
-	Direction            string   `protobuf:"bytes,3,opt,name=Direction,proto3" json:"Direction,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AgentActionRequest) Reset()         { *m = AgentActionRequest{} }
-func (m *AgentActionRequest) String() string { return proto.CompactTextString(m) }
-func (*AgentActionRequest) ProtoMessage()    {}
-func (*AgentActionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{6}
-}
-
-func (m *AgentActionRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AgentActionRequest.Unmarshal(m, b)
-}
-func (m *AgentActionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AgentActionRequest.Marshal(b, m, deterministic)
-}
-func (m *AgentActionRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AgentActionRequest.Merge(m, src)
-}
-func (m *AgentActionRequest) XXX_Size() int {
-	return xxx_messageInfo_AgentActionRequest.Size(m)
-}
-func (m *AgentActionRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AgentActionRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AgentActionRequest proto.InternalMessageInfo
-
-func (m *AgentActionRequest) GetId() string {
+func (m *Action) GetActionId() string {
 	if m != nil {
-		return m.Id
+		return m.ActionId
 	}
 	return ""
 }
 
-func (m *AgentActionRequest) GetAction() string {
-	if m != nil {
-		return m.Action
-	}
-	return ""
-}
-
-func (m *AgentActionRequest) GetDirection() string {
+func (m *Action) GetDirection() string {
 	if m != nil {
 		return m.Direction
 	}
 	return ""
 }
 
-type AgentActionResult struct {
-	// Whether or not the action was succesful
-	// Could be unsuccesful if attempting to interract with an entity
-	//  that is not in range, already consumed, etc.
-	Successful           bool     `protobuf:"varint,1,opt,name=Successful,proto3" json:"Successful,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AgentActionResult) Reset()         { *m = AgentActionResult{} }
-func (m *AgentActionResult) String() string { return proto.CompactTextString(m) }
-func (*AgentActionResult) ProtoMessage()    {}
-func (*AgentActionResult) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{7}
-}
-
-func (m *AgentActionResult) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AgentActionResult.Unmarshal(m, b)
-}
-func (m *AgentActionResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AgentActionResult.Marshal(b, m, deterministic)
-}
-func (m *AgentActionResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AgentActionResult.Merge(m, src)
-}
-func (m *AgentActionResult) XXX_Size() int {
-	return xxx_messageInfo_AgentActionResult.Size(m)
-}
-func (m *AgentActionResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_AgentActionResult.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AgentActionResult proto.InternalMessageInfo
-
-func (m *AgentActionResult) GetSuccessful() bool {
-	if m != nil {
-		return m.Successful
-	}
-	return false
-}
-
-// TODO - implement this
-type SpectateRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SpectateRequest) Reset()         { *m = SpectateRequest{} }
-func (m *SpectateRequest) String() string { return proto.CompactTextString(m) }
-func (*SpectateRequest) ProtoMessage()    {}
-func (*SpectateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{8}
-}
-
-func (m *SpectateRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SpectateRequest.Unmarshal(m, b)
-}
-func (m *SpectateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SpectateRequest.Marshal(b, m, deterministic)
-}
-func (m *SpectateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SpectateRequest.Merge(m, src)
-}
-func (m *SpectateRequest) XXX_Size() int {
-	return xxx_messageInfo_SpectateRequest.Size(m)
-}
-func (m *SpectateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SpectateRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SpectateRequest proto.InternalMessageInfo
-
-func (m *SpectateRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
 type CellUpdate struct {
-	X                    int32    `protobuf:"varint,1,opt,name=X,proto3" json:"X,omitempty"`
-	Y                    int32    `protobuf:"varint,2,opt,name=Y,proto3" json:"Y,omitempty"`
-	Occupant             string   `protobuf:"bytes,3,opt,name=Occupant,proto3" json:"Occupant,omitempty"`
+	X                    int32    `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y                    int32    `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	Occupant             string   `protobuf:"bytes,3,opt,name=occupant,proto3" json:"occupant,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -432,7 +232,7 @@ func (m *CellUpdate) Reset()         { *m = CellUpdate{} }
 func (m *CellUpdate) String() string { return proto.CompactTextString(m) }
 func (*CellUpdate) ProtoMessage()    {}
 func (*CellUpdate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{9}
+	return fileDescriptor_17e12b66aec6c312, []int{4}
 }
 
 func (m *CellUpdate) XXX_Unmarshal(b []byte) error {
@@ -474,143 +274,462 @@ func (m *CellUpdate) GetOccupant() string {
 	return ""
 }
 
-type SubscribeToRegionRequest struct {
-	// TODO - Put this in metadata instead of packet
-	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	X                    int32    `protobuf:"varint,2,opt,name=X,proto3" json:"X,omitempty"`
-	Y                    int32    `protobuf:"varint,3,opt,name=Y,proto3" json:"Y,omitempty"`
+type Spectator struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SubscribeToRegionRequest) Reset()         { *m = SubscribeToRegionRequest{} }
-func (m *SubscribeToRegionRequest) String() string { return proto.CompactTextString(m) }
-func (*SubscribeToRegionRequest) ProtoMessage()    {}
-func (*SubscribeToRegionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_17e12b66aec6c312, []int{10}
+func (m *Spectator) Reset()         { *m = Spectator{} }
+func (m *Spectator) String() string { return proto.CompactTextString(m) }
+func (*Spectator) ProtoMessage()    {}
+func (*Spectator) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{5}
 }
 
-func (m *SubscribeToRegionRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeToRegionRequest.Unmarshal(m, b)
+func (m *Spectator) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Spectator.Unmarshal(m, b)
 }
-func (m *SubscribeToRegionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeToRegionRequest.Marshal(b, m, deterministic)
+func (m *Spectator) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Spectator.Marshal(b, m, deterministic)
 }
-func (m *SubscribeToRegionRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeToRegionRequest.Merge(m, src)
+func (m *Spectator) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Spectator.Merge(m, src)
 }
-func (m *SubscribeToRegionRequest) XXX_Size() int {
-	return xxx_messageInfo_SubscribeToRegionRequest.Size(m)
+func (m *Spectator) XXX_Size() int {
+	return xxx_messageInfo_Spectator.Size(m)
 }
-func (m *SubscribeToRegionRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeToRegionRequest.DiscardUnknown(m)
+func (m *Spectator) XXX_DiscardUnknown() {
+	xxx_messageInfo_Spectator.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SubscribeToRegionRequest proto.InternalMessageInfo
+var xxx_messageInfo_Spectator proto.InternalMessageInfo
 
-func (m *SubscribeToRegionRequest) GetId() string {
+func (m *Spectator) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *SubscribeToRegionRequest) GetX() int32 {
+type Region struct {
+	X                    int32    `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y                    int32    `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Region) Reset()         { *m = Region{} }
+func (m *Region) String() string { return proto.CompactTextString(m) }
+func (*Region) ProtoMessage()    {}
+func (*Region) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{6}
+}
+
+func (m *Region) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Region.Unmarshal(m, b)
+}
+func (m *Region) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Region.Marshal(b, m, deterministic)
+}
+func (m *Region) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Region.Merge(m, src)
+}
+func (m *Region) XXX_Size() int {
+	return xxx_messageInfo_Region.Size(m)
+}
+func (m *Region) XXX_DiscardUnknown() {
+	xxx_messageInfo_Region.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Region proto.InternalMessageInfo
+
+func (m *Region) GetX() int32 {
 	if m != nil {
 		return m.X
 	}
 	return 0
 }
 
-func (m *SubscribeToRegionRequest) GetY() int32 {
+func (m *Region) GetY() int32 {
 	if m != nil {
 		return m.Y
 	}
 	return 0
 }
 
-type SubscribeToRegionResult struct {
+// Request message for CreateShelf method.
+type CreateAgentRequest struct {
+	// The shelf resource to create.
+	Agent                *Agent   `protobuf:"bytes,1,opt,name=agent,proto3" json:"agent,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SubscribeToRegionResult) Reset()         { *m = SubscribeToRegionResult{} }
-func (m *SubscribeToRegionResult) String() string { return proto.CompactTextString(m) }
-func (*SubscribeToRegionResult) ProtoMessage()    {}
-func (*SubscribeToRegionResult) Descriptor() ([]byte, []int) {
+func (m *CreateAgentRequest) Reset()         { *m = CreateAgentRequest{} }
+func (m *CreateAgentRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateAgentRequest) ProtoMessage()    {}
+func (*CreateAgentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{7}
+}
+
+func (m *CreateAgentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateAgentRequest.Unmarshal(m, b)
+}
+func (m *CreateAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateAgentRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateAgentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateAgentRequest.Merge(m, src)
+}
+func (m *CreateAgentRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateAgentRequest.Size(m)
+}
+func (m *CreateAgentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateAgentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateAgentRequest proto.InternalMessageInfo
+
+func (m *CreateAgentRequest) GetAgent() *Agent {
+	if m != nil {
+		return m.Agent
+	}
+	return nil
+}
+
+// Request message for GetAgent method.
+type GetAgentRequest struct {
+	// The ID of the shelf resource to retrieve.
+	Agent                string   `protobuf:"bytes,1,opt,name=agent,proto3" json:"agent,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAgentRequest) Reset()         { *m = GetAgentRequest{} }
+func (m *GetAgentRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAgentRequest) ProtoMessage()    {}
+func (*GetAgentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{8}
+}
+
+func (m *GetAgentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAgentRequest.Unmarshal(m, b)
+}
+func (m *GetAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAgentRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAgentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAgentRequest.Merge(m, src)
+}
+func (m *GetAgentRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAgentRequest.Size(m)
+}
+func (m *GetAgentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAgentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAgentRequest proto.InternalMessageInfo
+
+func (m *GetAgentRequest) GetAgent() string {
+	if m != nil {
+		return m.Agent
+	}
+	return ""
+}
+
+// Request message for DeleteShelf method.
+type DeleteAgentRequest struct {
+	// The ID of the shelf to delete.
+	Agent                string   `protobuf:"bytes,1,opt,name=agent,proto3" json:"agent,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteAgentRequest) Reset()         { *m = DeleteAgentRequest{} }
+func (m *DeleteAgentRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteAgentRequest) ProtoMessage()    {}
+func (*DeleteAgentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{9}
+}
+
+func (m *DeleteAgentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteAgentRequest.Unmarshal(m, b)
+}
+func (m *DeleteAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteAgentRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteAgentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteAgentRequest.Merge(m, src)
+}
+func (m *DeleteAgentRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteAgentRequest.Size(m)
+}
+func (m *DeleteAgentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteAgentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteAgentRequest proto.InternalMessageInfo
+
+func (m *DeleteAgentRequest) GetAgent() string {
+	if m != nil {
+		return m.Agent
+	}
+	return ""
+}
+
+type ActionAgentRequest struct {
+	Agent                string   `protobuf:"bytes,1,opt,name=agent,proto3" json:"agent,omitempty"`
+	ActionId             string   `protobuf:"bytes,2,opt,name=actionId,proto3" json:"actionId,omitempty"`
+	Direction            string   `protobuf:"bytes,3,opt,name=direction,proto3" json:"direction,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ActionAgentRequest) Reset()         { *m = ActionAgentRequest{} }
+func (m *ActionAgentRequest) String() string { return proto.CompactTextString(m) }
+func (*ActionAgentRequest) ProtoMessage()    {}
+func (*ActionAgentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{10}
+}
+
+func (m *ActionAgentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ActionAgentRequest.Unmarshal(m, b)
+}
+func (m *ActionAgentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ActionAgentRequest.Marshal(b, m, deterministic)
+}
+func (m *ActionAgentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ActionAgentRequest.Merge(m, src)
+}
+func (m *ActionAgentRequest) XXX_Size() int {
+	return xxx_messageInfo_ActionAgentRequest.Size(m)
+}
+func (m *ActionAgentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ActionAgentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ActionAgentRequest proto.InternalMessageInfo
+
+func (m *ActionAgentRequest) GetAgent() string {
+	if m != nil {
+		return m.Agent
+	}
+	return ""
+}
+
+func (m *ActionAgentRequest) GetActionId() string {
+	if m != nil {
+		return m.ActionId
+	}
+	return ""
+}
+
+func (m *ActionAgentRequest) GetDirection() string {
+	if m != nil {
+		return m.Direction
+	}
+	return ""
+}
+
+// Request message for GetAgent method.
+type GetObservationRequest struct {
+	// The ID of the shelf resource to retrieve.
+	Agent                string   `protobuf:"bytes,1,opt,name=agent,proto3" json:"agent,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetObservationRequest) Reset()         { *m = GetObservationRequest{} }
+func (m *GetObservationRequest) String() string { return proto.CompactTextString(m) }
+func (*GetObservationRequest) ProtoMessage()    {}
+func (*GetObservationRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_17e12b66aec6c312, []int{11}
 }
 
-func (m *SubscribeToRegionResult) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeToRegionResult.Unmarshal(m, b)
+func (m *GetObservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetObservationRequest.Unmarshal(m, b)
 }
-func (m *SubscribeToRegionResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeToRegionResult.Marshal(b, m, deterministic)
+func (m *GetObservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetObservationRequest.Marshal(b, m, deterministic)
 }
-func (m *SubscribeToRegionResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeToRegionResult.Merge(m, src)
+func (m *GetObservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetObservationRequest.Merge(m, src)
 }
-func (m *SubscribeToRegionResult) XXX_Size() int {
-	return xxx_messageInfo_SubscribeToRegionResult.Size(m)
+func (m *GetObservationRequest) XXX_Size() int {
+	return xxx_messageInfo_GetObservationRequest.Size(m)
 }
-func (m *SubscribeToRegionResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeToRegionResult.DiscardUnknown(m)
+func (m *GetObservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetObservationRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SubscribeToRegionResult proto.InternalMessageInfo
+var xxx_messageInfo_GetObservationRequest proto.InternalMessageInfo
+
+func (m *GetObservationRequest) GetAgent() string {
+	if m != nil {
+		return m.Agent
+	}
+	return ""
+}
+
+type CreateSpectatorRequest struct {
+	Spectator            *Spectator `protobuf:"bytes,1,opt,name=spectator,proto3" json:"spectator,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *CreateSpectatorRequest) Reset()         { *m = CreateSpectatorRequest{} }
+func (m *CreateSpectatorRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateSpectatorRequest) ProtoMessage()    {}
+func (*CreateSpectatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{12}
+}
+
+func (m *CreateSpectatorRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateSpectatorRequest.Unmarshal(m, b)
+}
+func (m *CreateSpectatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateSpectatorRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateSpectatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateSpectatorRequest.Merge(m, src)
+}
+func (m *CreateSpectatorRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateSpectatorRequest.Size(m)
+}
+func (m *CreateSpectatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateSpectatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateSpectatorRequest proto.InternalMessageInfo
+
+func (m *CreateSpectatorRequest) GetSpectator() *Spectator {
+	if m != nil {
+		return m.Spectator
+	}
+	return nil
+}
+
+type SubscribeSpectatorRequest struct {
+	Spectator            string   `protobuf:"bytes,1,opt,name=spectator,proto3" json:"spectator,omitempty"`
+	Region               *Region  `protobuf:"bytes,2,opt,name=region,proto3" json:"region,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SubscribeSpectatorRequest) Reset()         { *m = SubscribeSpectatorRequest{} }
+func (m *SubscribeSpectatorRequest) String() string { return proto.CompactTextString(m) }
+func (*SubscribeSpectatorRequest) ProtoMessage()    {}
+func (*SubscribeSpectatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_17e12b66aec6c312, []int{13}
+}
+
+func (m *SubscribeSpectatorRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SubscribeSpectatorRequest.Unmarshal(m, b)
+}
+func (m *SubscribeSpectatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SubscribeSpectatorRequest.Marshal(b, m, deterministic)
+}
+func (m *SubscribeSpectatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SubscribeSpectatorRequest.Merge(m, src)
+}
+func (m *SubscribeSpectatorRequest) XXX_Size() int {
+	return xxx_messageInfo_SubscribeSpectatorRequest.Size(m)
+}
+func (m *SubscribeSpectatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SubscribeSpectatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SubscribeSpectatorRequest proto.InternalMessageInfo
+
+func (m *SubscribeSpectatorRequest) GetSpectator() string {
+	if m != nil {
+		return m.Spectator
+	}
+	return ""
+}
+
+func (m *SubscribeSpectatorRequest) GetRegion() *Region {
+	if m != nil {
+		return m.Region
+	}
+	return nil
+}
 
 func init() {
-	proto.RegisterType((*SpawnAgentRequest)(nil), "olamai.endpoints.simulation.SpawnAgentRequest")
-	proto.RegisterType((*SpawnAgentResult)(nil), "olamai.endpoints.simulation.SpawnAgentResult")
-	proto.RegisterType((*AgentObservationRequest)(nil), "olamai.endpoints.simulation.AgentObservationRequest")
-	proto.RegisterType((*AgentObservationResult)(nil), "olamai.endpoints.simulation.AgentObservationResult")
-	proto.RegisterType((*ResetWorldRequest)(nil), "olamai.endpoints.simulation.ResetWorldRequest")
-	proto.RegisterType((*ResetWorldResult)(nil), "olamai.endpoints.simulation.ResetWorldResult")
-	proto.RegisterType((*AgentActionRequest)(nil), "olamai.endpoints.simulation.AgentActionRequest")
-	proto.RegisterType((*AgentActionResult)(nil), "olamai.endpoints.simulation.AgentActionResult")
-	proto.RegisterType((*SpectateRequest)(nil), "olamai.endpoints.simulation.SpectateRequest")
+	proto.RegisterType((*Empty)(nil), "olamai.endpoints.simulation.Empty")
+	proto.RegisterType((*Agent)(nil), "olamai.endpoints.simulation.Agent")
+	proto.RegisterType((*Observation)(nil), "olamai.endpoints.simulation.Observation")
+	proto.RegisterType((*Action)(nil), "olamai.endpoints.simulation.Action")
 	proto.RegisterType((*CellUpdate)(nil), "olamai.endpoints.simulation.CellUpdate")
-	proto.RegisterType((*SubscribeToRegionRequest)(nil), "olamai.endpoints.simulation.SubscribeToRegionRequest")
-	proto.RegisterType((*SubscribeToRegionResult)(nil), "olamai.endpoints.simulation.SubscribeToRegionResult")
+	proto.RegisterType((*Spectator)(nil), "olamai.endpoints.simulation.Spectator")
+	proto.RegisterType((*Region)(nil), "olamai.endpoints.simulation.Region")
+	proto.RegisterType((*CreateAgentRequest)(nil), "olamai.endpoints.simulation.CreateAgentRequest")
+	proto.RegisterType((*GetAgentRequest)(nil), "olamai.endpoints.simulation.GetAgentRequest")
+	proto.RegisterType((*DeleteAgentRequest)(nil), "olamai.endpoints.simulation.DeleteAgentRequest")
+	proto.RegisterType((*ActionAgentRequest)(nil), "olamai.endpoints.simulation.ActionAgentRequest")
+	proto.RegisterType((*GetObservationRequest)(nil), "olamai.endpoints.simulation.GetObservationRequest")
+	proto.RegisterType((*CreateSpectatorRequest)(nil), "olamai.endpoints.simulation.CreateSpectatorRequest")
+	proto.RegisterType((*SubscribeSpectatorRequest)(nil), "olamai.endpoints.simulation.SubscribeSpectatorRequest")
 }
 
 func init() { proto.RegisterFile("simulation/simulation.proto", fileDescriptor_17e12b66aec6c312) }
 
 var fileDescriptor_17e12b66aec6c312 = []byte{
-	// 488 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0xc7, 0x63, 0x87, 0x54, 0xc9, 0x80, 0x20, 0x19, 0x50, 0x6b, 0x5c, 0x84, 0xca, 0x5e, 0x28,
-	0x12, 0x38, 0x88, 0x94, 0x07, 0x88, 0x28, 0x88, 0x9e, 0x2a, 0xd9, 0x20, 0x5a, 0x6e, 0x1b, 0x7b,
-	0x08, 0x96, 0x36, 0xb6, 0xf1, 0xae, 0x8b, 0x38, 0x21, 0xf1, 0x76, 0xbc, 0x15, 0xf2, 0xae, 0x53,
-	0x27, 0x35, 0x71, 0x9a, 0x5b, 0xfe, 0xb3, 0xf3, 0x3d, 0x3f, 0x07, 0x0e, 0x65, 0xbc, 0x28, 0x04,
-	0x57, 0x71, 0x9a, 0x8c, 0xeb, 0x9f, 0x5e, 0x96, 0xa7, 0x2a, 0xc5, 0xc3, 0x54, 0xf0, 0x05, 0x8f,
-	0x3d, 0x4a, 0xa2, 0x2c, 0x8d, 0x13, 0x25, 0xbd, 0xda, 0x85, 0x8d, 0x61, 0x14, 0x64, 0xfc, 0x67,
-	0x32, 0x9d, 0x53, 0xa2, 0x7c, 0xfa, 0x51, 0x90, 0x54, 0x78, 0x0f, 0xac, 0x0b, 0xc7, 0x3a, 0xb2,
-	0x8e, 0x7b, 0xbe, 0x75, 0x51, 0xaa, 0x4b, 0xc7, 0x36, 0xea, 0x92, 0x31, 0x18, 0xae, 0x06, 0xc8,
-	0x42, 0x28, 0xbc, 0x0f, 0xf6, 0x59, 0xa4, 0x03, 0x06, 0xbe, 0x7d, 0x16, 0xb1, 0x17, 0x70, 0xa0,
-	0x9f, 0xcf, 0x67, 0x92, 0xf2, 0x2b, 0x5d, 0x68, 0x99, 0xfa, 0xa6, 0xab, 0x82, 0xfd, 0xa6, 0xab,
-	0x4e, 0xfa, 0x08, 0x7a, 0x53, 0x11, 0x5f, 0x91, 0x76, 0xee, 0xfb, 0x46, 0x94, 0xd6, 0x77, 0x24,
-	0x84, 0x74, 0xec, 0xa3, 0xee, 0xf1, 0xc0, 0x37, 0x02, 0xf7, 0x61, 0xef, 0x7d, 0x42, 0xf9, 0xfc,
-	0x97, 0xd3, 0xd5, 0x7d, 0x56, 0xaa, 0xb4, 0x7f, 0x24, 0x2e, 0xd4, 0x77, 0xe7, 0x8e, 0xb1, 0x1b,
-	0xc5, 0x1e, 0xc2, 0xc8, 0x27, 0x49, 0xea, 0x4b, 0x9a, 0x8b, 0xa8, 0x6a, 0x8d, 0x21, 0x0c, 0x57,
-	0x8d, 0x65, 0x13, 0xec, 0x2b, 0xa0, 0x6e, 0x6f, 0x1a, 0xb6, 0x0c, 0x51, 0x96, 0x31, 0x0e, 0x7a,
-	0x4d, 0x03, 0xbf, 0x52, 0xf8, 0x04, 0x06, 0xa7, 0x71, 0x4e, 0xe6, 0xa9, 0xab, 0x9f, 0x6a, 0x03,
-	0x9b, 0xc0, 0x68, 0x2d, 0xb7, 0x9e, 0xfa, 0x29, 0x40, 0x50, 0x84, 0x21, 0x49, 0xf9, 0xad, 0x10,
-	0xd5, 0xe8, 0x2b, 0x16, 0xf6, 0x0c, 0x1e, 0x04, 0x19, 0x85, 0x8a, 0x2b, 0xda, 0xb4, 0xd2, 0x53,
-	0x80, 0x72, 0x2b, 0x9f, 0xb3, 0x88, 0x2b, 0x6a, 0xbb, 0x25, 0xba, 0xd0, 0x3f, 0x0f, 0xc3, 0x22,
-	0xe3, 0x89, 0xaa, 0xda, 0xbb, 0xd6, 0xec, 0x03, 0x38, 0x41, 0x31, 0x93, 0x61, 0x1e, 0xcf, 0xe8,
-	0x53, 0xea, 0xd3, 0xbc, 0x65, 0x7e, 0x5d, 0xc3, 0x5e, 0xab, 0xd1, 0x5d, 0xf2, 0xf2, 0x18, 0x0e,
-	0xfe, 0x93, 0xa7, 0x9c, 0xf5, 0xcd, 0xdf, 0x1e, 0x40, 0x70, 0x8d, 0x22, 0x2e, 0x00, 0x6a, 0xb2,
-	0xd0, 0xf3, 0x5a, 0xb0, 0xf5, 0x1a, 0xcc, 0xba, 0xaf, 0x6e, 0xed, 0xaf, 0x0f, 0xdb, 0xc1, 0xdf,
-	0x30, 0xbc, 0x49, 0x1e, 0x9e, 0xb4, 0x26, 0xd9, 0xc0, 0xb4, 0x3b, 0xd9, 0x31, 0xaa, 0x6a, 0x20,
-	0x83, 0xbb, 0x2b, 0xf7, 0xc7, 0xf1, 0xf6, 0x2c, 0x6b, 0x14, 0xba, 0xde, 0xed, 0x03, 0xaa, 0x8a,
-	0x0b, 0x80, 0x9a, 0xf0, 0x2d, 0x1b, 0x6e, 0x7c, 0x1f, 0x5b, 0x36, 0xdc, 0xf8, 0x74, 0x3a, 0x48,
-	0xd0, 0x5f, 0xb2, 0x8a, 0x2f, 0xb7, 0x9c, 0x67, 0x0d, 0x69, 0xf7, 0x79, 0xab, 0x77, 0x4d, 0x37,
-	0xeb, 0xbc, 0xb6, 0xf0, 0x8f, 0x05, 0xa3, 0x06, 0x62, 0xf8, 0xb6, 0xbd, 0xe0, 0x06, 0xb4, 0xdd,
-	0x93, 0x5d, 0xc3, 0xcc, 0xac, 0xb3, 0x3d, 0xfd, 0x5f, 0x3b, 0xf9, 0x17, 0x00, 0x00, 0xff, 0xff,
-	0x22, 0x0e, 0x0e, 0x1f, 0x8a, 0x05, 0x00, 0x00,
+	// 689 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x55, 0xc1, 0x6e, 0xd3, 0x4c,
+	0x10, 0x96, 0xd3, 0x3f, 0xf9, 0xe3, 0x31, 0x6a, 0xc5, 0x50, 0xaa, 0xd4, 0xcd, 0x21, 0x5a, 0x2a,
+	0x1a, 0x45, 0x10, 0x43, 0x2a, 0x21, 0x14, 0x4e, 0xa5, 0x45, 0x15, 0x17, 0x90, 0x5c, 0x21, 0x6e,
+	0x48, 0x9b, 0x78, 0x95, 0x5a, 0x72, 0xbd, 0xc6, 0xde, 0x84, 0x46, 0x55, 0x39, 0x70, 0xe0, 0x8c,
+	0x84, 0xb8, 0xf1, 0x32, 0x3c, 0x03, 0xaf, 0xc0, 0x83, 0x20, 0xef, 0x3a, 0xb6, 0xe3, 0x04, 0xc7,
+	0xa7, 0x78, 0xc6, 0x3b, 0xf3, 0x7d, 0x3b, 0xf3, 0x7d, 0x0e, 0x1c, 0x44, 0xee, 0xd5, 0xd4, 0xa3,
+	0xc2, 0xe5, 0xbe, 0x95, 0x3d, 0xf6, 0x83, 0x90, 0x0b, 0x8e, 0x07, 0xdc, 0xa3, 0x57, 0xd4, 0xed,
+	0x33, 0xdf, 0x09, 0xb8, 0xeb, 0x8b, 0xa8, 0x9f, 0x1d, 0x31, 0xdb, 0x13, 0xce, 0x27, 0x1e, 0xb3,
+	0x68, 0xe0, 0x5a, 0xd4, 0xf7, 0xb9, 0x90, 0xe9, 0x48, 0x95, 0x92, 0xff, 0xa1, 0xfe, 0xea, 0x2a,
+	0x10, 0x73, 0x72, 0x0c, 0xf5, 0x93, 0x09, 0xf3, 0x05, 0x6e, 0x43, 0xcd, 0x75, 0x5a, 0x5a, 0x47,
+	0xeb, 0xea, 0x76, 0xcd, 0x75, 0xf0, 0x0e, 0x68, 0xd7, 0xad, 0x5a, 0x47, 0xeb, 0xd6, 0x6d, 0xed,
+	0x3a, 0x8e, 0xe6, 0xad, 0x2d, 0x15, 0xcd, 0x89, 0x0b, 0xc6, 0xdb, 0x51, 0xc4, 0xc2, 0x99, 0xec,
+	0x89, 0xbb, 0x50, 0xa7, 0x9e, 0x3b, 0x63, 0xb2, 0xba, 0x69, 0xab, 0x20, 0xce, 0x8e, 0x99, 0xe7,
+	0x45, 0xad, 0x5a, 0x67, 0xab, 0xab, 0xdb, 0x2a, 0xc0, 0x3d, 0x68, 0x30, 0x9f, 0x85, 0x93, 0x45,
+	0xb7, 0x24, 0x8a, 0xf3, 0x97, 0x8c, 0x7a, 0xe2, 0xb2, 0xf5, 0x9f, 0xca, 0xab, 0x88, 0xbc, 0x84,
+	0xc6, 0xc9, 0x58, 0xa2, 0x98, 0xd0, 0xa4, 0xf2, 0xe9, 0xf5, 0x82, 0x66, 0x1a, 0x63, 0x1b, 0x74,
+	0xc7, 0x0d, 0x99, 0x0c, 0x25, 0x69, 0xdd, 0xce, 0x12, 0xe4, 0x0c, 0xe0, 0x94, 0x79, 0xde, 0xbb,
+	0xc0, 0xa1, 0x82, 0xa9, 0x8b, 0x69, 0x4b, 0x17, 0x4b, 0xae, 0x39, 0x8f, 0x31, 0xf8, 0x78, 0x3c,
+	0x0d, 0xa8, 0x2f, 0x24, 0x3f, 0xdd, 0x4e, 0x63, 0x72, 0x00, 0xfa, 0x45, 0xc0, 0xc6, 0x82, 0x0a,
+	0x1e, 0x16, 0xa7, 0x45, 0x0e, 0xa1, 0x61, 0xb3, 0x49, 0x4c, 0xb3, 0xa4, 0x3d, 0x79, 0x03, 0x78,
+	0x1a, 0x32, 0x2a, 0x98, 0x1c, 0xb9, 0xcd, 0x3e, 0x4e, 0x59, 0x24, 0xf0, 0x39, 0xd4, 0x69, 0x1c,
+	0xcb, 0x2a, 0x63, 0x40, 0xfa, 0x25, 0x6b, 0xed, 0xab, 0x4a, 0x55, 0x40, 0x8e, 0x60, 0xe7, 0x9c,
+	0x89, 0xa5, 0x66, 0xbb, 0xf9, 0x66, 0xfa, 0xe2, 0x60, 0x0f, 0xf0, 0x8c, 0x79, 0xac, 0x00, 0xbc,
+	0xfe, 0xac, 0x03, 0xa8, 0x26, 0xbe, 0xf9, 0xec, 0xd2, 0x4e, 0x6a, 0x65, 0x3b, 0xd9, 0x2a, 0xee,
+	0xe4, 0x31, 0xdc, 0x3f, 0x67, 0x22, 0xa7, 0xa2, 0x72, 0x52, 0x1f, 0x60, 0x4f, 0x4d, 0x2e, 0x5d,
+	0xc1, 0xe2, 0xfc, 0x19, 0xe8, 0xd1, 0x22, 0x97, 0x4c, 0xf0, 0x61, 0xe9, 0x04, 0xb3, 0x0e, 0x59,
+	0x21, 0x99, 0xc1, 0xfe, 0xc5, 0x74, 0x14, 0x8d, 0x43, 0x77, 0xb4, 0x0a, 0xd1, 0x2e, 0x42, 0xe8,
+	0xb9, 0x52, 0x7c, 0x01, 0x8d, 0x50, 0xae, 0x5e, 0x4e, 0xc0, 0x18, 0x3c, 0x28, 0x45, 0x57, 0x2a,
+	0xb1, 0x93, 0x92, 0xc1, 0xaf, 0x26, 0xc0, 0x45, 0xfa, 0x16, 0x6f, 0xc1, 0xc8, 0x09, 0x04, 0xad,
+	0xd2, 0x56, 0xab, 0x52, 0x32, 0x2b, 0x68, 0x87, 0xec, 0x7f, 0xf9, 0xfd, 0xe7, 0x7b, 0xed, 0x1e,
+	0x01, 0x6b, 0xf6, 0xd4, 0x92, 0xd3, 0x8d, 0x86, 0xc9, 0x3a, 0xaf, 0xa1, 0xb9, 0xd0, 0x13, 0x3e,
+	0x2a, 0x6d, 0x55, 0x90, 0x5d, 0x25, 0x60, 0x53, 0x02, 0xef, 0x22, 0x66, 0xc0, 0xd6, 0x8d, 0xfc,
+	0xbd, 0xc5, 0xcf, 0x60, 0xe4, 0x04, 0xba, 0xe1, 0xe2, 0xab, 0x52, 0xde, 0x80, 0xaf, 0x3e, 0x75,
+	0x09, 0x7e, 0x6f, 0x1d, 0xfe, 0x57, 0x0d, 0x8c, 0x9c, 0xea, 0x37, 0x10, 0x58, 0xf5, 0x47, 0x25,
+	0x02, 0x44, 0x12, 0x68, 0x93, 0x35, 0x04, 0x86, 0x0d, 0xe5, 0x1b, 0xfc, 0xa6, 0xc1, 0xf6, 0xb2,
+	0x31, 0x70, 0xb0, 0x69, 0x13, 0xab, 0x2e, 0x32, 0xbb, 0xa5, 0x35, 0xb9, 0x02, 0xd2, 0x91, 0xa4,
+	0x4c, 0x6c, 0xc5, 0xa4, 0x78, 0xf6, 0x22, 0x9b, 0xcd, 0x0f, 0x0d, 0x76, 0x0a, 0xe6, 0xc3, 0xe3,
+	0x0a, 0xca, 0x2c, 0xfa, 0xc8, 0x3c, 0x2a, 0x2f, 0x4a, 0x3f, 0xd1, 0xe9, 0xa0, 0x76, 0x62, 0x4e,
+	0xa9, 0xd3, 0x22, 0x6b, 0x98, 0xd9, 0xee, 0x89, 0x86, 0x3f, 0x35, 0xc0, 0x55, 0xd3, 0xe2, 0xb3,
+	0x72, 0xf7, 0xff, 0xcb, 0xe5, 0x95, 0x36, 0xd8, 0x93, 0xc4, 0x0e, 0x89, 0x59, 0x20, 0x76, 0x93,
+	0x3e, 0xdf, 0x0e, 0x13, 0x6b, 0xe3, 0x04, 0xc0, 0x66, 0x11, 0x13, 0xef, 0x79, 0xe8, 0x39, 0x58,
+	0xa1, 0x7b, 0x25, 0x06, 0x77, 0x25, 0x03, 0xa3, 0xa7, 0xc7, 0x0c, 0x3e, 0xc5, 0xad, 0x47, 0x0d,
+	0xf9, 0x97, 0x7e, 0xfc, 0x37, 0x00, 0x00, 0xff, 0xff, 0xfe, 0xda, 0x4c, 0x18, 0x2c, 0x08, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -625,18 +744,22 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SimulationClient interface {
-	// Spawn a new agent
-	SpawnAgent(ctx context.Context, in *SpawnAgentRequest, opts ...grpc.CallOption) (*SpawnAgentResult, error)
-	// Request observation data from an agent
-	AgentObservation(ctx context.Context, in *AgentObservationRequest, opts ...grpc.CallOption) (*AgentObservationResult, error)
-	// Perform an action on behalf of an agent
-	AgentAction(ctx context.Context, in *AgentActionRequest, opts ...grpc.CallOption) (*AgentActionResult, error)
+	// Creates a new agent
+	CreateAgent(ctx context.Context, in *CreateAgentRequest, opts ...grpc.CallOption) (*Agent, error)
+	// Returns a specific agent
+	GetAgent(ctx context.Context, in *GetAgentRequest, opts ...grpc.CallOption) (*Agent, error)
+	// Deletes an agent
+	DeleteAgent(ctx context.Context, in *DeleteAgentRequest, opts ...grpc.CallOption) (*Empty, error)
+	// Perform agent action
+	ActionAgent(ctx context.Context, in *ActionAgentRequest, opts ...grpc.CallOption) (*Empty, error)
+	// Returns a specific book.
+	GetObservation(ctx context.Context, in *GetObservationRequest, opts ...grpc.CallOption) (*Observation, error)
+	// Start a spectation stream
+	CreateSpectator(ctx context.Context, in *CreateSpectatorRequest, opts ...grpc.CallOption) (Simulation_CreateSpectatorClient, error)
+	// Subscribe a spectator to a region
+	SubscribeSpectator(ctx context.Context, in *SubscribeSpectatorRequest, opts ...grpc.CallOption) (*Empty, error)
 	// Reset the world
-	ResetWorld(ctx context.Context, in *ResetWorldRequest, opts ...grpc.CallOption) (*ResetWorldResult, error)
-	// Spectate simulation
-	Spectate(ctx context.Context, in *SpectateRequest, opts ...grpc.CallOption) (Simulation_SpectateClient, error)
-	// Subscribe to region
-	SubscribeToRegion(ctx context.Context, in *SubscribeToRegionRequest, opts ...grpc.CallOption) (*SubscribeToRegionResult, error)
+	ResetWorld(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type simulationClient struct {
@@ -647,48 +770,57 @@ func NewSimulationClient(cc *grpc.ClientConn) SimulationClient {
 	return &simulationClient{cc}
 }
 
-func (c *simulationClient) SpawnAgent(ctx context.Context, in *SpawnAgentRequest, opts ...grpc.CallOption) (*SpawnAgentResult, error) {
-	out := new(SpawnAgentResult)
-	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/SpawnAgent", in, out, opts...)
+func (c *simulationClient) CreateAgent(ctx context.Context, in *CreateAgentRequest, opts ...grpc.CallOption) (*Agent, error) {
+	out := new(Agent)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/CreateAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *simulationClient) AgentObservation(ctx context.Context, in *AgentObservationRequest, opts ...grpc.CallOption) (*AgentObservationResult, error) {
-	out := new(AgentObservationResult)
-	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/AgentObservation", in, out, opts...)
+func (c *simulationClient) GetAgent(ctx context.Context, in *GetAgentRequest, opts ...grpc.CallOption) (*Agent, error) {
+	out := new(Agent)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/GetAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *simulationClient) AgentAction(ctx context.Context, in *AgentActionRequest, opts ...grpc.CallOption) (*AgentActionResult, error) {
-	out := new(AgentActionResult)
-	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/AgentAction", in, out, opts...)
+func (c *simulationClient) DeleteAgent(ctx context.Context, in *DeleteAgentRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/DeleteAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *simulationClient) ResetWorld(ctx context.Context, in *ResetWorldRequest, opts ...grpc.CallOption) (*ResetWorldResult, error) {
-	out := new(ResetWorldResult)
-	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/ResetWorld", in, out, opts...)
+func (c *simulationClient) ActionAgent(ctx context.Context, in *ActionAgentRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/ActionAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *simulationClient) Spectate(ctx context.Context, in *SpectateRequest, opts ...grpc.CallOption) (Simulation_SpectateClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Simulation_serviceDesc.Streams[0], "/olamai.endpoints.simulation.Simulation/Spectate", opts...)
+func (c *simulationClient) GetObservation(ctx context.Context, in *GetObservationRequest, opts ...grpc.CallOption) (*Observation, error) {
+	out := new(Observation)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/GetObservation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &simulationSpectateClient{stream}
+	return out, nil
+}
+
+func (c *simulationClient) CreateSpectator(ctx context.Context, in *CreateSpectatorRequest, opts ...grpc.CallOption) (Simulation_CreateSpectatorClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Simulation_serviceDesc.Streams[0], "/olamai.endpoints.simulation.Simulation/CreateSpectator", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simulationCreateSpectatorClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -698,16 +830,16 @@ func (c *simulationClient) Spectate(ctx context.Context, in *SpectateRequest, op
 	return x, nil
 }
 
-type Simulation_SpectateClient interface {
+type Simulation_CreateSpectatorClient interface {
 	Recv() (*CellUpdate, error)
 	grpc.ClientStream
 }
 
-type simulationSpectateClient struct {
+type simulationCreateSpectatorClient struct {
 	grpc.ClientStream
 }
 
-func (x *simulationSpectateClient) Recv() (*CellUpdate, error) {
+func (x *simulationCreateSpectatorClient) Recv() (*CellUpdate, error) {
 	m := new(CellUpdate)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -715,9 +847,18 @@ func (x *simulationSpectateClient) Recv() (*CellUpdate, error) {
 	return m, nil
 }
 
-func (c *simulationClient) SubscribeToRegion(ctx context.Context, in *SubscribeToRegionRequest, opts ...grpc.CallOption) (*SubscribeToRegionResult, error) {
-	out := new(SubscribeToRegionResult)
-	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/SubscribeToRegion", in, out, opts...)
+func (c *simulationClient) SubscribeSpectator(ctx context.Context, in *SubscribeSpectatorRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/SubscribeSpectator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *simulationClient) ResetWorld(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/olamai.endpoints.simulation.Simulation/ResetWorld", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -726,80 +867,159 @@ func (c *simulationClient) SubscribeToRegion(ctx context.Context, in *SubscribeT
 
 // SimulationServer is the server API for Simulation service.
 type SimulationServer interface {
-	// Spawn a new agent
-	SpawnAgent(context.Context, *SpawnAgentRequest) (*SpawnAgentResult, error)
-	// Request observation data from an agent
-	AgentObservation(context.Context, *AgentObservationRequest) (*AgentObservationResult, error)
-	// Perform an action on behalf of an agent
-	AgentAction(context.Context, *AgentActionRequest) (*AgentActionResult, error)
+	// Creates a new agent
+	CreateAgent(context.Context, *CreateAgentRequest) (*Agent, error)
+	// Returns a specific agent
+	GetAgent(context.Context, *GetAgentRequest) (*Agent, error)
+	// Deletes an agent
+	DeleteAgent(context.Context, *DeleteAgentRequest) (*Empty, error)
+	// Perform agent action
+	ActionAgent(context.Context, *ActionAgentRequest) (*Empty, error)
+	// Returns a specific book.
+	GetObservation(context.Context, *GetObservationRequest) (*Observation, error)
+	// Start a spectation stream
+	CreateSpectator(*CreateSpectatorRequest, Simulation_CreateSpectatorServer) error
+	// Subscribe a spectator to a region
+	SubscribeSpectator(context.Context, *SubscribeSpectatorRequest) (*Empty, error)
 	// Reset the world
-	ResetWorld(context.Context, *ResetWorldRequest) (*ResetWorldResult, error)
-	// Spectate simulation
-	Spectate(*SpectateRequest, Simulation_SpectateServer) error
-	// Subscribe to region
-	SubscribeToRegion(context.Context, *SubscribeToRegionRequest) (*SubscribeToRegionResult, error)
+	ResetWorld(context.Context, *Empty) (*Empty, error)
 }
 
 func RegisterSimulationServer(s *grpc.Server, srv SimulationServer) {
 	s.RegisterService(&_Simulation_serviceDesc, srv)
 }
 
-func _Simulation_SpawnAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpawnAgentRequest)
+func _Simulation_CreateAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SimulationServer).SpawnAgent(ctx, in)
+		return srv.(SimulationServer).CreateAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/olamai.endpoints.simulation.Simulation/SpawnAgent",
+		FullMethod: "/olamai.endpoints.simulation.Simulation/CreateAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).SpawnAgent(ctx, req.(*SpawnAgentRequest))
+		return srv.(SimulationServer).CreateAgent(ctx, req.(*CreateAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Simulation_AgentObservation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AgentObservationRequest)
+func _Simulation_GetAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SimulationServer).AgentObservation(ctx, in)
+		return srv.(SimulationServer).GetAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/olamai.endpoints.simulation.Simulation/AgentObservation",
+		FullMethod: "/olamai.endpoints.simulation.Simulation/GetAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).AgentObservation(ctx, req.(*AgentObservationRequest))
+		return srv.(SimulationServer).GetAgent(ctx, req.(*GetAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Simulation_AgentAction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AgentActionRequest)
+func _Simulation_DeleteAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SimulationServer).AgentAction(ctx, in)
+		return srv.(SimulationServer).DeleteAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/olamai.endpoints.simulation.Simulation/AgentAction",
+		FullMethod: "/olamai.endpoints.simulation.Simulation/DeleteAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).AgentAction(ctx, req.(*AgentActionRequest))
+		return srv.(SimulationServer).DeleteAgent(ctx, req.(*DeleteAgentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Simulation_ActionAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActionAgentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimulationServer).ActionAgent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/olamai.endpoints.simulation.Simulation/ActionAgent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimulationServer).ActionAgent(ctx, req.(*ActionAgentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Simulation_GetObservation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObservationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimulationServer).GetObservation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/olamai.endpoints.simulation.Simulation/GetObservation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimulationServer).GetObservation(ctx, req.(*GetObservationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Simulation_CreateSpectator_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CreateSpectatorRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(SimulationServer).CreateSpectator(m, &simulationCreateSpectatorServer{stream})
+}
+
+type Simulation_CreateSpectatorServer interface {
+	Send(*CellUpdate) error
+	grpc.ServerStream
+}
+
+type simulationCreateSpectatorServer struct {
+	grpc.ServerStream
+}
+
+func (x *simulationCreateSpectatorServer) Send(m *CellUpdate) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Simulation_SubscribeSpectator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscribeSpectatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimulationServer).SubscribeSpectator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/olamai.endpoints.simulation.Simulation/SubscribeSpectator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimulationServer).SubscribeSpectator(ctx, req.(*SubscribeSpectatorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Simulation_ResetWorld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ResetWorldRequest)
+	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -811,46 +1031,7 @@ func _Simulation_ResetWorld_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/olamai.endpoints.simulation.Simulation/ResetWorld",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).ResetWorld(ctx, req.(*ResetWorldRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Simulation_Spectate_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SpectateRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(SimulationServer).Spectate(m, &simulationSpectateServer{stream})
-}
-
-type Simulation_SpectateServer interface {
-	Send(*CellUpdate) error
-	grpc.ServerStream
-}
-
-type simulationSpectateServer struct {
-	grpc.ServerStream
-}
-
-func (x *simulationSpectateServer) Send(m *CellUpdate) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _Simulation_SubscribeToRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SubscribeToRegionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SimulationServer).SubscribeToRegion(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/olamai.endpoints.simulation.Simulation/SubscribeToRegion",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimulationServer).SubscribeToRegion(ctx, req.(*SubscribeToRegionRequest))
+		return srv.(SimulationServer).ResetWorld(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -860,30 +1041,38 @@ var _Simulation_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*SimulationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SpawnAgent",
-			Handler:    _Simulation_SpawnAgent_Handler,
+			MethodName: "CreateAgent",
+			Handler:    _Simulation_CreateAgent_Handler,
 		},
 		{
-			MethodName: "AgentObservation",
-			Handler:    _Simulation_AgentObservation_Handler,
+			MethodName: "GetAgent",
+			Handler:    _Simulation_GetAgent_Handler,
 		},
 		{
-			MethodName: "AgentAction",
-			Handler:    _Simulation_AgentAction_Handler,
+			MethodName: "DeleteAgent",
+			Handler:    _Simulation_DeleteAgent_Handler,
+		},
+		{
+			MethodName: "ActionAgent",
+			Handler:    _Simulation_ActionAgent_Handler,
+		},
+		{
+			MethodName: "GetObservation",
+			Handler:    _Simulation_GetObservation_Handler,
+		},
+		{
+			MethodName: "SubscribeSpectator",
+			Handler:    _Simulation_SubscribeSpectator_Handler,
 		},
 		{
 			MethodName: "ResetWorld",
 			Handler:    _Simulation_ResetWorld_Handler,
 		},
-		{
-			MethodName: "SubscribeToRegion",
-			Handler:    _Simulation_SubscribeToRegion_Handler,
-		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Spectate",
-			Handler:       _Simulation_Spectate_Handler,
+			StreamName:    "CreateSpectator",
+			Handler:       _Simulation_CreateSpectator_Handler,
 			ServerStreams: true,
 		},
 	},
