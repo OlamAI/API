@@ -17,10 +17,10 @@ compileGO: # compile proto files
 	--proto_path=./simulation \
 	--go_out=plugins=grpc:./ \
 	--descriptor_set_out=./simulation/api_descriptor.pb	\
-	./simulation/*.proto
+	./simulation/simulation.proto
 
 compileJS:
-	@protoc -I=./ ./**/*.proto \
+	@protoc -I=./ ./*.proto \
 	--proto_path=/usr/local/include \
 	--js_out=import_style=commonjs:${JS_OUT} \
 	--grpc-web_out=import_style=commonjs,mode=grpcwebtext:${JS_OUT}
@@ -66,3 +66,8 @@ docker-clean: down ## shuts down the API and then clears out saved Docker images
 
 # python3 -m grpc_tools.protoc -I. http.proto  --python_out=.
 # python3 -m grpc_tools.protoc -I. annotations.proto  --python_out=.
+
+protoc ./annotations.proto --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. --descriptor_set_out=.
+protoc ./http.proto --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. 
+protoc ./descriptor.proto --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. 
+protoc ./simulation.proto --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. 

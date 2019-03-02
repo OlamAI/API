@@ -81,7 +81,7 @@ service Simulation {
   // Start a spectation stream
   rpc CreateSpectator(CreateSpectatorRequest) returns (stream CellUpdate) {
     option (google.api.http) = {
-      post: "/v1/spectators/"
+      post: "/v1/spectators"
       body: "spectator"
     };
   }
@@ -120,8 +120,7 @@ message DeleteAgentRequest {
 
 message ActionAgentRequest {
   string agent = 1;
-  string actionId = 2;
-  string direction = 3;
+  Action action = 2;
 }
 
 // Request message for GetAgent method.

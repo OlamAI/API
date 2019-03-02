@@ -17,18 +17,15 @@ apis:
 #
 # API usage restrictions.
 #
-usage:
+http:
   rules:
     # Spectate methods can be called without an API Key.
     - selector: olamai.endpoints.simulation.Simulation.CreateSpectator
-      allow_unregistered_calls: true
+      post: /v1/spectators
+      body: spectator
     - selector: olamai.endpoints.simulation.Simulation.SubscribeSpectator
-      allow_unregistered_calls: true
-    - selector: olamai.endpoints.simulation.Simulation.GetObservation
-      allow_unregistered_calls: true
-    - selector: olamai.endpoints.simulation.Simulation.ActionAgent
-      allow_unregistered_calls: true
-    - selector: olamai.endpoints.simulation.Simulation.ResetWorld
-      allow_unregistered_calls: true
+      post: /v1/spectators/{spectator}
+      body: region
     - selector: olamai.endpoints.simulation.Simulation.CreateAgent
-      allow_unregistered_calls: true
+      post: /v1/agents
+      body: agent

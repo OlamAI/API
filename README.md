@@ -12,6 +12,10 @@ python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./simulatio
 
 gcloud container clusters get-credentials --zone us-central1-a [CLUSTER_NAME]
 
+# Deploy to GKE
+
+kubectl create -f grpc-simulation.yaml
+
 # GKE - Generate descriptor
 
 protoc -m grpc_tools.protoc \

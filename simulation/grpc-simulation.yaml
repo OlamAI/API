@@ -12,21 +12,21 @@ spec:
   selector:
     app: esp-grpc-simulation
   type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: esp-grpc-http1-simulation
-spec:
-  ports:
-  # Port that accepts gRPC and JSON/HTTP1 requests over HTTP.
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
-    name: http1
-  selector:
-    app: esp-grpc-simulation
-  type: LoadBalancer
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: esp-grpc-http1-simulation
+# spec:
+#   ports:
+#   # Port that accepts gRPC and JSON/HTTP1 requests over HTTP.
+#   - port: 80
+#     targetPort: 8080
+#     protocol: TCP
+#     name: http1
+#   selector:
+#     app: esp-grpc-simulation
+#   type: LoadBalancer
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -43,14 +43,14 @@ spec:
       - name: esp
         image: gcr.io/endpoints-release/endpoints-runtime:1.16.0
         args: [
-          "--http2_port=9000",
+          "--http2_port=9000", # for gRPC
           "--service=olamai.endpoints.olamai.cloud.goog",
           "--rollout_strategy=managed",
-          "--backend=grpc://127.0.0.1:9090"
+          "--backend=grpc://127.0.0.1:50051"
         ]
         ports:
           - containerPort: 9000
       - name: simulation
         image: olamai/simulation:0.0.1
         ports:
-          - containerPort: 9090
+          - containerPort: 50051
