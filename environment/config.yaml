@@ -1,0 +1,15 @@
+# The configuration schema is defined by service.proto file
+# https://github.com/googleapis/googleapis/blob/master/google/api/service.proto
+type: google.api.Service
+config_version: 3
+
+name: environment.endpoints.olamai-d64a7.cloud.goog
+title: Environment gRPC API
+
+apis:
+  - name: endpoints.terrariumai.environment.Environment
+
+usage:
+  rules:
+    - selector: endpoints.terrariumai.environment.Environment.CreateEntity
+      allow_unregistered_calls: true

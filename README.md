@@ -1,12 +1,12 @@
 ## Compile JS
 
-protoc -I=./ simulation.proto \
+protoc -I=./ environment.proto \
 --js_out=import_style=commonjs:./ \
 --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./
 
 ## Compile Python
 
-python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./simulation.proto
+python3 -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./environment.proto
 
 # Connect to cluster from kubetcl
 
@@ -14,7 +14,7 @@ gcloud container clusters get-credentials --zone us-central1-a [CLUSTER_NAME]
 
 # Deploy to GKE
 
-kubectl create -f grpc-simulation.yaml
+kubectl create -f grpc-environment.yaml
 
 # GKE - Generate descriptor
 
