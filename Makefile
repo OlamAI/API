@@ -1,45 +1,43 @@
-API_REST_OUT := "build-rest/" # TODO - NO API ENDPOINT
-PKG := "github.com/olamai/api"
-PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
+# -----
+# Compile Descriptors
+# -----
+compile-descriptor-environment:
+	python3 -m grpc_tools.protoc \
+    --include_imports \
+    --include_source_info \
+    --proto_path=. \
+    --proto_path=./environment \
+    --descriptor_set_out=./environment/descriptor.pb \
+    environment.proto
 
-.PHONY: all
+compile-descriptors: compile-descriptor-environment
 
-all: compile
+# -----
+# Compile Go
+# -----
+compile-go-environment:
+	protoc \
+    -I=./environment \
+	--go_out=plugins=grpc:../simulation/pkg/api/environment \
+	environment.proto \
 
-compile: # compile proto files
-		@protoc \
-		-I ./ \
-		-I${GOPATH}/src \
-		--go_out=plugins=grpc:./ \
-		./*.proto
+compile-go: compile-go-environment
 
-dep: ## Get the dependencies
-	@go get -v -d ./...
+# -----
+# Compile JS
+# -----
+compile-js-environment:
+	cp ./environment/environment.proto ../nodeExample/api
+# -----
+# Compile
+# -----
+compile: compile-descriptors compile-go 
 
-clean: ## Remove previous builds
-	@rm ./*.pb.go
+# -----
+# Deploy
+# -----
 
-help: ## Display this help screen
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+deploy-environment:
+	gcloud endpoints services deploy ./environment/descriptor.pb ./environment/config.yaml
 
-## ----------------------
-## ------ DOCKER --------
-## ----------------------
-docker-build: ## Build the docker container
-	docker build -f Dockerfile.dev -t api .
-
-docker-up: default ## Start the service locally
-	@echo "=============starting api locally============="
-	docker-compose up -d
-
-docker-logs: ## tail the logs
-	docker-compose logs -f
-
-docker-down: ## shut down the docker server
-	docker-compose down
-
-docker-clean: down ## shuts down the API and then clears out saved Docker images 
-	@echo "=============cleaning up============="
-	rm -f api
-	docker system prune -f
-	docker volume prune -f
+deploy: deploy-environment

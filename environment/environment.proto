@@ -1,0 +1,91 @@
+syntax = "proto3";
+package endpoints.terrariumai.environment;
+
+import "google/protobuf/empty.proto";
+
+// Taks we have to do
+message Entity {
+  // Unique integer identifier of the agent
+  int64 id = 1;
+  // Entity stats
+  string class = 2;
+  int32 x = 3;
+  int32 y = 4;
+  int32 energy = 5;
+  int32 health = 6;
+  // Owner details
+  string ownerUID = 7;
+  string modelName = 8;
+}
+
+// Request data to create new agent
+message CreateEntityRequest {
+  // agent
+  Entity agent = 1;
+}
+// Contains data of created agent
+message CreateEntityResponse {
+  // ID of created agent
+  int64 id = 1;
+}
+
+// Request data to read entity
+message GetEntityRequest {
+  // Unique integer identifier of the agent
+  int64 id = 1;
+}
+// Contains entity data specified in by ID request
+message GetEntityResponse {
+  // Task entity read by ID
+  Entity entity = 1;
+}
+
+// Request data to delete agent
+message DeleteEntityRequest {
+  // Unique integer identifier of the agent to delete
+  int64 id = 1;
+}
+// Contains status of delete operation
+message DeleteEntityResponse {
+  // Contains number of entities have beed deleted
+  // Equals 1 in case of successful delete
+  int64 deleted = 1;
+}
+
+message ExecuteAgentActionRequest {
+  // Id for the agent that should perform the action
+  int64 id = 1;
+  // identifier for the action
+  // 0: MOVE
+  // 1: EAT
+  uint32 action = 2;
+  // direction to perform the action in
+  // 0: UP
+  // 1: DOWN
+  // 2: LEFT
+  // 3: RIGHT
+  uint32 direction = 3;
+}
+message ExecuteAgentActionResponse {
+  // Was the agent able to perform the action
+  bool wasSuccessful = 3;
+}
+
+// ----------------------
+// -- Generic Entity
+// ----------------------
+
+// Service to manage simulation
+service Environment {
+  // Create new agent
+  rpc CreateEntity(CreateEntityRequest) returns (CreateEntityResponse) {}
+  // Get data for an entity
+  rpc GetEntity(GetEntityRequest) returns (GetEntityResponse) {}
+  // Delete an agent
+  rpc DeleteEntity(DeleteEntityRequest) returns (DeleteEntityResponse) {}
+  // Perform an action for an agent
+  rpc ExecuteAgentAction(ExecuteAgentActionRequest)
+      returns (ExecuteAgentActionResponse) {}
+  // Reset the world
+  rpc ResetWorld(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}
