@@ -1,0 +1,13 @@
+type: google.api.Service
+config_version: 3
+
+name: collective.endpoints.olamai-d64a7.cloud.goog
+title: Collective gRPC API
+
+apis:
+  - name: endpoints.terrariumai.collective.Collective
+
+usage:
+  rules:
+    - selector: endpoints.terrariumai.collective.Collective.ConnectRemoteModel
+      allow_unregistered_calls: true

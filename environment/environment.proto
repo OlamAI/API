@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 // Taks we have to do
 message Entity {
   // Unique integer identifier of the agent
-  int64 id = 1;
+  string id = 1;
   // Entity stats
   string class = 2;
   int32 x = 3;
@@ -21,18 +21,18 @@ message Entity {
 // Request data to create new agent
 message CreateEntityRequest {
   // agent
-  Entity agent = 1;
+  Entity entity = 1;
 }
 // Contains data of created agent
 message CreateEntityResponse {
   // ID of created agent
-  int64 id = 1;
+  string id = 1;
 }
 
 // Request data to read entity
 message GetEntityRequest {
   // Unique integer identifier of the agent
-  int64 id = 1;
+  string id = 1;
 }
 // Contains entity data specified in by ID request
 message GetEntityResponse {
@@ -43,7 +43,7 @@ message GetEntityResponse {
 // Request data to delete agent
 message DeleteEntityRequest {
   // Unique integer identifier of the agent to delete
-  int64 id = 1;
+  string id = 1;
 }
 // Contains status of delete operation
 message DeleteEntityResponse {
@@ -54,7 +54,7 @@ message DeleteEntityResponse {
 
 message ExecuteAgentActionRequest {
   // Id for the agent that should perform the action
-  int64 id = 1;
+  string id = 1;
   // identifier for the action
   // 0: MOVE
   // 1: EAT
