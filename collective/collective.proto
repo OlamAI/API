@@ -6,7 +6,11 @@ message Entity {
   // Unique integer identifier of the agent
   string id = 1;
   // Entity stats
-  string class = 2;
+  // 0 nothing
+  // 1 agent
+  // 2 food
+  // 3 wall
+  int32 class = 2;
 }
 // Observation is a list of cells around an agent
 message Observation {

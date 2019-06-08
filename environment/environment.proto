@@ -8,14 +8,14 @@ message Entity {
   // Unique integer identifier of the agent
   string id = 1;
   // Entity stats
-  string class = 2;
+  int32 class = 2;
   int32 x = 3;
   int32 y = 4;
   int32 energy = 5;
   int32 health = 6;
   // Owner details
   string ownerUID = 7;
-  string modelName = 8;
+  string modelID = 8;
 }
 
 // Request data to create new agent

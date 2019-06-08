@@ -1,3 +1,5 @@
+JS_OUT = ../web-client/api
+PY_OUT = ../python-client/api
 # -----
 # Compile Descriptors
 # -----
@@ -37,15 +39,30 @@ compile-go-collective:
 compile-go: compile-go-collective compile-go-environment
 
 # -----
+# Compile Python
+# -----
+compile-py-collective:
+	python3 -m grpc_tools.protoc \
+    -I./collective \
+    --python_out=${PY_OUT} \
+    --grpc_python_out=${PY_OUT} \
+    collective.proto
+
+# -----
 # Compile JS
 # -----
-# Note: JS can read in .proto files directly so we smiply copy it over
 compile-js-environment:
-	cp ./environment/environment.proto ../nodeExample/api
+	protoc \
+    -I=./environment \
+    --js_out=import_style=commonjs:${JS_OUT} \
+    --grpc-web_out=import_style=commonjs,mode=grpcwebtext:${JS_OUT} \
+	environment.proto 
+
+compile-js: compile-js-environment
 # -----
 # Compile
 # -----
-compile: compile-descriptors compile-go 
+compile: compile-descriptors compile-go compile-js
 
 # -----
 # Deploy
