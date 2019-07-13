@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: collective
+spec:
+  ports:
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: http2
+  selector:
+    app: collective
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: collective
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: collective
+    spec:
+      containers:
+      - name: collective
+        image: terrariumai/collective:0.0.1
+        args: [
+          "-redis-addr=10.0.0.3:6379"
+        ]
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9090
