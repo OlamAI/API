@@ -1,14 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: esp-grpc-environment
+  name: esp-grpc-environment-http2
 spec:
   ports:
   # Port that accepts gRPC and JSON/HTTP2 requests over HTTP.
-  - port: 80
-    targetPort: 9090
+  - port: 8090
+    targetPort: 9091
     protocol: TCP
     name: http2
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
   selector:
     app: esp-grpc-environment
   type: LoadBalancer
@@ -26,17 +30,22 @@ spec:
     spec:
       containers:
       - name: esp
-        image: gcr.io/endpoints-release/endpoints-runtime:1.16.0
+        image: gcr.io/endpoints-release/endpoints-runtime:1
         args: [
-          "--http2_port=9090",
+          "--http2_port=9091",
+          "--http_port=8080",
           "--service=environment.endpoints.olamai-d64a7.cloud.goog",
           "--rollout_strategy=managed",
-          "--backend=grpc://127.0.0.1:8000"
+          "--backend=grpc://127.0.0.1:9090",
+          "--cors_preset=basic",
+          "--cors_allow_headers=Keep-Alive,User-Agent,Cache-Control,Content-Type,Content-Transfer-Encoding,X-Accept-Content-Transfer-Encoding,X-Accept-Response-Streaming,X-User-Agent,X-Grpc-Web,Grpc-Timeout,Authorization,authorization",
+          "--cors_expose_headers=grpc-status,grpc-message,authorization",
+          "--enable_debug"
         ]
         ports:
-          - containerPort: 9090
+          - containerPort: 9091
       - name: environment
         image: terrariumai/environment:0.0.1
         imagePullPolicy: Always
         ports:
-          - containerPort: 8000
+          - containerPort: 9090

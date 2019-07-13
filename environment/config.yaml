@@ -7,7 +7,18 @@ title: Environment gRPC API
 apis:
   - name: endpoints.terrariumai.environment.Environment
 
+authentication:
+  providers:
+    - id: firebase
+      jwks_uri: https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com
+      issuer: https://securetoken.google.com/olamai-d64a7
+      audiences: "olamai-d64a7"
+  rules:
+    - selector: "*"
+      requirements:
+        - provider_id: firebase
+
 usage:
   rules:
-    - selector: endpoints.terrariumai.environment.Environment.CreateEntity
+    - selector: "*"
       allow_unregistered_calls: true

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: esp-grpc-environment-dev
+spec:
+  ports:
+  # Port that accepts gRPC and JSON/HTTP2 requests over HTTP.
+  - port: 80
+    targetPort: 9090
+    protocol: TCP
+    name: http2
+  selector:
+    app: esp-grpc-environment-dev
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: esp-grpc-environment-dev
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: esp-grpc-environment-dev
+    spec:
+      # [START secret-1]
+      volumes:
+        - name: service-account-creds
+          secret:
+            secretName: service-account-creds
+      # [END secret-1]
+      containers:
+      - name: esp
+        image: gcr.io/endpoints-release/endpoints-runtime:1
+        args: [
+          "--http2_port=9090",
+          "--service=environment.endpoints.olamai-d64a7.cloud.goog",
+          "--rollout_strategy=managed",
+          "--backend=grpc://127.0.0.1:8000",
+          "--service_account_key=/etc/nginx/creds/service-account-creds.json",
+          "--enable_debug"
+        ]
+        ports:
+          - containerPort: 9090
+        # [START secret-2]
+        volumeMounts:
+          - mountPath: /etc/nginx/creds
+            name: service-account-creds
+            readOnly: true
+        # [END secret-2]
+      - name: environment
+        image: terrariumai/environment:0.0.1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
