@@ -38,7 +38,7 @@ spec:
           "--service=environment.endpoints.olamai-d64a7.cloud.goog",
           "--rollout_strategy=managed",
           "--backend=grpc://127.0.0.1:8000",
-          "--service_account_key=/etc/nginx/creds/service-account-creds.json",
+          "-k", "/etc/nginx/creds/service-account-creds.json",
           "--enable_debug"
         ]
         ports:
