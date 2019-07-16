@@ -68,9 +68,16 @@ message ExecuteAgentActionRequest {
 }
 message ExecuteAgentActionResponse {
   // Was the agent able to perform the action
-  bool wasSuccessful = 3;
+  bool wasSuccessful = 1;
 }
 
+message GetEntitiesInRegionRequest {
+  int32 x = 1;
+  int32 y = 2;
+}
+message GetEntitiesInRegionResponse {
+  repeated Entity entities = 1;
+}
 // ----------------------
 // -- Generic Entity
 // ----------------------
@@ -88,4 +95,6 @@ service Environment {
       returns (ExecuteAgentActionResponse) {}
   // Reset the world
   rpc ResetWorld(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+  // Get Region
+  rpc GetEntitiesInRegion(GetEntitiesInRegionRequest) returns (GetEntitiesInRegionResponse) {}
 }
