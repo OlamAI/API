@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: environment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: environment
+    spec:
+      containers:
+      - name: environment
+        image: terrariumai/environment:0.0.1
+        args: [
+          "-redis-addr=10.0.0.3:6379"
+        ]
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9090
