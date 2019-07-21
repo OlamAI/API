@@ -1,17 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: collective
-spec:
-  ports:
-  - port: 9090
-    targetPort: 9090
-    protocol: TCP
-    name: http2
-  selector:
-    app: collective
-  type: LoadBalancer
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
