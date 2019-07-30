@@ -8,11 +8,14 @@ message Entity {
   // Unique integer identifier of the agent
   string id = 1;
   // Entity stats
-  int32 class = 2;
-  int32 x = 3;
-  int32 y = 4;
-  int32 energy = 5;
-  int32 health = 6;
+  // 0: Empty
+  // 1: Agent
+  // 2: Rock
+  uint32 class = 2;
+  uint32 x = 3;
+  uint32 y = 4;
+  uint32 energy = 5;
+  uint32 health = 6;
   // Owner details
   string ownerUID = 7;
   string modelID = 8;
@@ -72,8 +75,8 @@ message ExecuteAgentActionResponse {
 }
 
 message GetEntitiesInRegionRequest {
-  int32 x = 1;
-  int32 y = 2;
+  uint32 x = 1;
+  uint32 y = 2;
 }
 message GetEntitiesInRegionResponse {
   repeated Entity entities = 1;
@@ -95,6 +98,8 @@ service Environment {
       returns (ExecuteAgentActionResponse) {}
   // Reset the world
   rpc ResetWorld(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+  // Spawn food in the world
+  rpc SpawnFood(google.protobuf.Empty) returns (google.protobuf.Empty) {}
   // Get Region
   rpc GetEntitiesInRegion(GetEntitiesInRegionRequest) returns (GetEntitiesInRegionResponse) {}
 }

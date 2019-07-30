@@ -10,7 +10,7 @@ message Entity {
   // 1 agent
   // 2 food
   // 3 wall
-  int32 class = 2;
+  uint32 class = 2;
 }
 // Observation is a list of cells around an agent
 message Observation {

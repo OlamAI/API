@@ -17,7 +17,6 @@ authentication:
     - selector: "*"
       requirements:
         - provider_id: firebase
-    - selector: "endpoints.terrariumai.environment.Environment.GetEntitiesInRegion"
 
 usage:
   rules:
