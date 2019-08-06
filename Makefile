@@ -1,5 +1,5 @@
 JS_OUT = ../web-client/api
-PY_OUT = ../python-client/api
+PY_OUT = ../pip-pkg/terrariumai
 # -----
 # Compile Descriptors
 # -----

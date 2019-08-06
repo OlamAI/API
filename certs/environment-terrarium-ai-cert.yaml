@@ -1,7 +1,7 @@
 apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
-  name: simulation-terrarium-ai-certificate
+  name: environment-terrarium-ai-certificate
 spec:
   domains:
-    - simulation.terrarium.ai
+    - environment.terrarium.ai

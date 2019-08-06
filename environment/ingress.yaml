@@ -4,8 +4,7 @@ metadata:
   name: environment-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: envoy-proxy-ip
-  labels:
-    app: environment
+    networking.gke.io/managed-certificates: environment-terrarium-ai-certificate
 spec:
   backend:
     serviceName: esp-environment

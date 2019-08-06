@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: collective-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "collective-static-ip"
+spec:
+  backend:
+    serviceName: collective
+    servicePort: 9090

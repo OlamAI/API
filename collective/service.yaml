@@ -10,4 +10,4 @@ spec:
     name: http2
   selector:
     app: collective
-  type: LoadBalancer
+  type: NodePort
