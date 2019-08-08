@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: collective-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "collective-static-ip"
+    kubernetes.io/ingress.global-static-ip-name: "collective-ip"
 spec:
   backend:
     serviceName: collective

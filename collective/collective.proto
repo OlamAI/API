@@ -10,16 +10,20 @@ message Entity {
   // 1 agent
   // 2 food
   // 3 wall
-  uint32 class = 2;
+  uint32 classID = 2;
 }
 // Observation is a list of cells around an agent
 message Observation {
   // Is the agent alive
   bool isAlive = 1;
+  // Energy
+  uint32 energy = 2;
+  // Health
+  uint32 health = 3;
   // Id of the agent that is observing
-  string id = 2;
+  string id = 4;
   // List of cells around the agent
-  repeated Entity cells = 3;
+  repeated Entity cells = 5;
 }
 // Action is an action to be performed
 message Action {
