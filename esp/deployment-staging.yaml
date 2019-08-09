@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: esp-environment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: esp-environment
+    spec:
+      volumes:
+        - name: service-account-creds
+          secret:
+            secretName: service-account-creds
+            containers:
+      containers:
+        - name: esp-environment
+          image: gcr.io/endpoints-release/endpoints-runtime:1
+          args: [
+            "--http_port=8080",
+            "--service=environment.endpoints.olamai-testing.cloud.goog",
+            "--rollout_strategy=managed",
+            "--backend=grpc://environment.default.svc.cluster.local:9090",
+            "--service_account_key=/etc/nginx/creds/serviceAccountKey_staging.json",
+            "--cors_preset=basic",
+            "--cors_allow_headers=Keep-Alive,User-Agent,Cache-Control,Content-Type,Content-Transfer-Encoding,X-Accept-Content-Transfer-Encoding,X-Accept-Response-Streaming,X-User-Agent,X-Grpc-Web,Grpc-Timeout,Authorization,authorization",
+            "--cors_expose_headers=grpc-status,grpc-message,authorization",
+            "--enable_debug",
+            # Sets the healthcheck location to /${-z} meaning it is just / because this is blank
+            "-z",
+            " "
+          ]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/creds
+              name: service-account-creds
+              readOnly: true

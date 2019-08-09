@@ -1,15 +1,18 @@
-# This service is to allow collective direct access (bipass authorization)
 apiVersion: v1
 kind: Service
 metadata:
-  name: environment
+  name: esp-environment
 spec:
   ports:
   # Port that accepts gRPC and JSON/HTTP2 requests over HTTP.
-  - port: 9090
-    targetPort: 9090
+  - port: 8090
+    targetPort: 9091
     protocol: TCP
     name: http2
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
   selector:
-    app: environment
+    app: esp-environment
   type: NodePort

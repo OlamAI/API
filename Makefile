@@ -68,10 +68,10 @@ compile: compile-descriptors compile-go compile-js
 # Deploy
 # -----
 
-deploy-environment:
-	gcloud endpoints services deploy ./environment/descriptor.pb ./environment/config.yaml
+deploy-environment-staging:
+	gcloud config set project olamai-testing
+	gcloud endpoints services deploy ./environment/descriptor.pb ./environment/config-staging.yaml
 
-deploy-collective:
+deploy-environment-prod:
+	gcloud config set project olamai-d64a7
 	gcloud endpoints services deploy ./environment/descriptor.pb ./environment/config.yaml
-
-deploy: deploy-environment

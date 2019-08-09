@@ -26,3 +26,14 @@ protoc -m grpc_tools.protoc \
  --python_out=generated_pb2 \
  --grpc_python_out=generated_pb2 \
  bookstore.proto
+
+# Development 
+Start redis  
+`kubectl run redismod --image=redislabs/redismod --port=6379` 
+`kubectl expose deployment redismod --type=NodePort` 
+Start environment
+`kubectl create -f environment/deployment-staging.yaml` 
+Start esp  
+`kubectl create -f esp/deployment-staging.yaml`  
+Expose esp
+`kubectl create -f esp/service-staging.yaml`

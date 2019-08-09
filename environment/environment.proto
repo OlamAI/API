@@ -63,6 +63,7 @@ message ExecuteAgentActionRequest {
   // 0: WAIT
   // 1: MOVE
   // 2: EAT
+  // 3: ATTACK
   uint32 action = 2;
   // direction to perform the action in
   // 0: UP
