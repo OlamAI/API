@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: esp-environment
+  name: esp-environment-stg
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: esp-environment
+        app: esp-environment-stg
     spec:
       volumes:
         - name: service-account-creds
@@ -15,13 +15,13 @@ spec:
             secretName: service-account-creds
             containers:
       containers:
-        - name: esp-environment
+        - name: esp-environment-stg
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args: [
             "--http_port=8080",
             "--service=environment.endpoints.olamai-testing.cloud.goog",
             "--rollout_strategy=managed",
-            "--backend=grpc://environment.default.svc.cluster.local:9090",
+            "--backend=grpc://environment-stg.default.svc.cluster.local:9090",
             "--service_account_key=/etc/nginx/creds/serviceAccountKey_staging.json",
             "--cors_preset=basic",
             "--cors_allow_headers=Keep-Alive,User-Agent,Cache-Control,Content-Type,Content-Transfer-Encoding,X-Accept-Content-Transfer-Encoding,X-Accept-Response-Streaming,X-User-Agent,X-Grpc-Web,Grpc-Timeout,Authorization,authorization",

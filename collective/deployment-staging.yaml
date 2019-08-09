@@ -1,19 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: environment-stg
+  name: collective-stg
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: environment-stg
+        app: collective-stg
     spec:
       containers:
-      - name: environment-stg
-        image: terrariumai/environment:latest
+      - name: collective-stg
+        image: terrariumai/collective:latest
         args: [
           "-redis-addr=redismod.default.svc:6379",
+          "-environment-addr=environment-stg.default.svc.cluster.local:9090",
           "-env=staging"
         ]
         imagePullPolicy: Always

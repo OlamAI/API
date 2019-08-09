@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: collective-stg
+spec:
+  ports:
+  - port: 9090
+    targetPort: 9090
+    nodePort: 32090
+    protocol: TCP
+    name: http2
+  selector:
+    app: collective-stg
+  type: NodePort

@@ -63,8 +63,8 @@ spec:
         ]
         ports:
           - containerPort: 9091
-      - name: environment
-        image: terrariumai/environment:0.0.1
+      - name: environment-stg
+        image: terrariumai/environment:latest
         args: [
           "-env=staging",
           "-redis-addr=redis-db-svc.default.svc:6379"
