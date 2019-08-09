@@ -33,6 +33,7 @@ Start redis
 `kubectl expose deployment redismod --type=NodePort` 
 Start environment
 `kubectl create -f environment/deployment-staging.yaml` 
+`kubectl create -f environment/service.yaml` 
 Start esp  
 `kubectl create -f esp/deployment-staging.yaml`  
 Expose esp
