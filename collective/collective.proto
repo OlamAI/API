@@ -8,8 +8,8 @@ message Entity {
   // Entity stats
   // 0 nothing
   // 1 agent
-  // 2 food
-  // 3 wall
+  // 2 rock
+  // 3 food
   uint32 classID = 2;
 }
 // Observation is a list of cells around an agent
