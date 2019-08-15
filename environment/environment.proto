@@ -22,6 +22,10 @@ message Entity {
   string modelID = 8;
 }
 
+message Cell {
+  uint32 pheromone = 1;
+}
+
 // Request data to create new agent
 message CreateEntityRequest {
   // agent

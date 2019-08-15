@@ -5,13 +5,15 @@ package endpoints.terrariumai.collective;
 message Entity {
   // Unique integer identifier of the agent
   string id = 1;
-  // Entity stats
-  // 0 nothing
-  // 1 agent
-  // 2 rock
-  // 3 food
+  // Class id
   uint32 classID = 2;
 }
+
+message Cell {
+  Entity occupant = 1;
+  uint32 pheromone = 2;
+}
+
 // Observation is a list of cells around an agent
 message Observation {
   // Is the agent alive
@@ -23,8 +25,9 @@ message Observation {
   // Id of the agent that is observing
   string id = 4;
   // List of cells around the agent
-  repeated Entity cells = 5;
+  repeated Cell cells = 5;
 }
+
 // Action is an action to be performed
 message Action {
   // Id for the agent that should perform the action
@@ -46,6 +49,7 @@ message ObservationPacket {
   // List of observations for every agent the RM is controlling
   repeated Observation observations = 1;
 }
+
 // Request data to create new agent
 message ActionPacket {
   // List of actions to be performed

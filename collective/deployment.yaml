@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: collective
-        image: terrariumai/collective:0.1.3
+        image: terrariumai/collective:0.1.4
         args: [
           "-redis-addr=10.0.0.3:6379"
         ]
