@@ -47,6 +47,7 @@ compile-py-collective:
     --python_out=${PY_OUT} \
     --grpc_python_out=${PY_OUT} \
     collective.proto
+compile-py: compile-collective
 
 # -----
 # Compile JS
@@ -62,7 +63,7 @@ compile-js: compile-js-environment
 # -----
 # Compile
 # -----
-compile: compile-descriptors compile-go compile-js
+compile: compile-descriptors compile-go compile-py
 
 # -----
 # Deploy

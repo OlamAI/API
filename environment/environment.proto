@@ -22,8 +22,25 @@ message Entity {
   string modelID = 8;
 }
 
-message Cell {
-  uint32 pheromone = 1;
+// Effects are manipulations of a cell that last a specific amount of time
+message Effect {
+  // Pos
+  uint32 x = 1;
+  uint32 y = 2;
+  // Time of creation
+  int64 timestamp = 3;
+  // Class
+  enum Class {
+    NONE = 0;
+    PHEROMONE = 1;
+  }
+  Class classID = 4;
+  // Value, used for observation
+  uint32 value = 5;
+  // How fast it should decay
+  float decay = 6;
+  // Min before being deleted
+  uint32 delThresh = 7;
 }
 
 // Request data to create new agent
@@ -90,6 +107,14 @@ message GetEntitiesInRegionRequest {
 message GetEntitiesInRegionResponse {
   repeated Entity entities = 1;
 }
+
+message GetEffectsInRegionRequest {
+  uint32 x = 1;
+  uint32 y = 2;
+}
+message GetEffectsInRegionResponse {
+  repeated Effect effects = 1;
+}
 // ----------------------
 // -- Generic Entity
 // ----------------------
@@ -111,4 +136,5 @@ service Environment {
   rpc SpawnFood(google.protobuf.Empty) returns (google.protobuf.Empty) {}
   // Get Region
   rpc GetEntitiesInRegion(GetEntitiesInRegionRequest) returns (GetEntitiesInRegionResponse) {}
+  rpc GetEffectsInRegion(GetEffectsInRegionRequest) returns (GetEffectsInRegionResponse) {}
 }

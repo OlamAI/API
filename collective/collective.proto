@@ -9,12 +9,20 @@ message Entity {
   uint32 classID = 2;
 }
 
-message Cell {
-  Entity occupant = 1;
-  uint32 pheromone = 2;
+// Effects are manipulations of a cell that last a specific amount of time
+message Effect {
+  // Class
+  enum Class {
+    NONE = 0;
+    PHEROMONE = 1;
+  }
+  Class classID = 1;
+  // Value, used for observation
+  uint32 value = 2;
+  uint32 strength = 3;
 }
 
-// Observation is a list of cells around an agent
+// Observation gives data about the agent, and from it's senses
 message Observation {
   // Is the agent alive
   bool isAlive = 1;
@@ -24,8 +32,9 @@ message Observation {
   uint32 health = 3;
   // Id of the agent that is observing
   string id = 4;
-  // List of cells around the agent
-  repeated Cell cells = 5;
+  // Senses
+  repeated Entity sight = 5;
+  repeated Effect smell = 6;
 }
 
 // Action is an action to be performed
