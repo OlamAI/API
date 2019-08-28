@@ -8,11 +8,13 @@ message Entity {
   // Unique integer identifier of the agent
   string id = 1;
   // Entity stats
-  // 0: Empty
-  // 1: Agent
-  // 2: Rock
-  // 3: Food
-  uint32 classID = 2;
+  enum Class {
+    EMPTY = 0;
+    AGENT = 1;
+    ROCK = 2;
+    FOOD = 3;
+  }
+  Class classID = 2;
   uint32 x = 3;
   uint32 y = 4;
   uint32 energy = 5;
@@ -81,23 +83,30 @@ message ExecuteAgentActionRequest {
   // Id for the agent that should perform the action
   string id = 1;
   // identifier for the action
-  // 0: WAIT
-  // 1: MOVE
-  // 2: EAT
-  // 3: ATTACK
-  uint32 action = 2;
+  enum Action {
+    WAIT = 0;
+    MOVE = 1;
+    EAT = 2;
+    ATTACK = 3;
+  }
+  Action action = 2;
   // direction to perform the action in
-  // 0: UP
-  // 1: DOWN
-  // 2: LEFT
-  // 3: RIGHT
-  uint32 direction = 3;
+  enum Direction {
+    UP = 0;
+    DOWN = 1;
+    LEFT = 2;
+    RIGHT = 3;
+  }
+  Direction direction = 3;
 }
 message ExecuteAgentActionResponse {
-  // Was the agent able to perform the action
-  bool wasSuccessful = 1;
-  // Is the agent still alive
-  bool isAlive = 2;
+  // Response
+  enum ResponseValue {
+    OK = 0;
+    ERR_INVALID_TARGET = 2;
+    ERR_DIED = 3;
+  }
+  ResponseValue value = 1;
 }
 
 message GetEntitiesInRegionRequest {

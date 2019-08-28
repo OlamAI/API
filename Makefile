@@ -28,11 +28,13 @@ compile-descriptors: compile-descriptor-collective compile-descriptor-environmen
 compile-go-environment:
 	protoc \
     -I=./environment \
+    -I=./ \
 	--go_out=plugins=grpc:../simulation/pkg/api/environment \
 	environment.proto 
 compile-go-collective:
 	protoc \
     -I=./collective \
+    -I=./ \
 	--go_out=plugins=grpc:../simulation/pkg/api/collective \
 	collective.proto \
 
@@ -47,7 +49,7 @@ compile-py-collective:
     --python_out=${PY_OUT} \
     --grpc_python_out=${PY_OUT} \
     collective.proto
-compile-py: compile-collective
+compile-py: compile-py-collective
 
 # -----
 # Compile JS
@@ -68,7 +70,6 @@ compile: compile-descriptors compile-go compile-py
 # -----
 # Deploy
 # -----
-
 deploy-environment-staging:
 	gcloud config set project olamai-testing
 	gcloud endpoints services deploy ./environment/descriptor.pb ./environment/config-staging.yaml
