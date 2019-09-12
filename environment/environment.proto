@@ -103,8 +103,8 @@ message ExecuteAgentActionResponse {
   // Response
   enum ResponseValue {
     OK = 0;
-    ERR_INVALID_TARGET = 2;
-    ERR_DIED = 3;
+    ERR_INVALID_TARGET = 1;
+    ERR_DIED = 2;
   }
   ResponseValue value = 1;
 }
